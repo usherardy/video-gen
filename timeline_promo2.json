@@ -1,0 +1,19 @@
+{
+  "fps": 30, "duration": 20, "bpm": 120, "nbeats": 40,
+  "scenes": [0, 6, 24, 30, 40],
+  "hook": [0, 1, 2, 3, 4],
+  "morph": [5.5, 6],
+  "drops": { "shell": 6.25, "title": 6.5, "card": 6.75, "chips": [7, 7.2, 7.4, 7.6, 7.8], "enhance": 8 },
+  "rows": [12.5, 13, 13.5],
+  "header": 13.75,
+  "lines": [14, 14.33, 14.67, 15, 15.33, 15.67],
+  "clicks": [12, 17, 18.5, 20, 23, 36],
+  "typing": [20.5, 22.4, 42],
+  "odo": [24.4, 26.5],
+  "captions": [
+    { "b": 6, "s": "PASTE YOUR PROMPT." }, { "b": 8.5, "s": "See your score.", "it": 1 },
+    { "b": 12, "s": "ONE CLICK." }, { "b": 13.5, "s": "Get it polished.", "it": 1 },
+    { "b": 16, "s": "SAVE ONCE." }, { "b": 18, "s": "Reuse anywhere.", "it": 1 },
+    { "b": 20, "s": "ROUGH IDEA →" }, { "b": 22.5, "s": "structured prompt.", "it": 1 }
+  ]
+}
