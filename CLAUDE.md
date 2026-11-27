@@ -16,6 +16,8 @@
 - Score and SFX are synthesized in code unless a track is supplied.
 - No generic synth pads: prefer piano-like tones, percussion and designed hits.
 - Place hits on the measured beat grid (beats.json). Loudness -14 LUFS.
+- Voiceover: ElevenLabs (connector), one take of the whole script, split at pauses and placed on beats
+  with `python3 audio/vo_mix.py audio/vo/<film>.json` (score ducks ~-11 dB, voice sits +8 dB, masters to -14 LUFS).
 
 ## Loop before you show me anything
 1. Render one frame per beat as a contact sheet and LOOK at it.
