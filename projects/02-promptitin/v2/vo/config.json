@@ -1,0 +1,16 @@
+{
+  "take": "vo/takeA.mp3", "music": "audio/promo2_raw.wav", "beats": "beats.json", "out": "promo2_vo",
+  "voice": "Erik - Confident Commercial Narration (zQHE5F85wua2ysECgQ4l), eleven_v4",
+  "phrases": [
+    [0.00, 2.10, 0.05, "Your prompt is forty percent there."],
+    [2.48, 3.03, 6.0, "Paste it in."],
+    [3.34, 4.11, 8.5, "See your score."],
+    [4.40, 5.14, 12.0, "One click."],
+    [5.47, 6.07, 13.75, "Polished."],
+    [6.40, 8.43, 16.0, "Save it once. Reuse it anywhere."],
+    [8.67, 10.13, 20.5, "Or start from a rough idea."],
+    [10.46, 12.18, 24.5, "A thousand credits, every month."],
+    [12.63, 13.30, 31.0, "Prompt It In."],
+    [13.57, null, 32.75, "Log in, and get better prompts."]
+  ]
+}

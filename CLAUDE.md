@@ -17,7 +17,7 @@
 - No generic synth pads: prefer piano-like tones, percussion and designed hits.
 - Place hits on the measured beat grid (beats.json). Loudness -14 LUFS.
 - Voiceover: ElevenLabs (connector), one take of the whole script, split at pauses and placed on beats
-  with `python3 audio/vo_mix.py audio/vo/<film>.json` (score ducks ~-11 dB, voice sits +8 dB, masters to -14 LUFS).
+  with `shared/vo_mix.py vo/config.json` (score ducks ~-11 dB, voice sits +8 dB, masters to -14 LUFS).
 
 ## Loop before you show me anything
 1. Render one frame per beat as a contact sheet and LOOK at it.
@@ -27,6 +27,9 @@
 4. Only then do the full render.
 
 ## Pipeline
+- One folder per film under `projects/` (see the root `README.md`). Run every command from that film's folder.
 - `timeline.json`: scene cuts in beats (shared by audio and picture).
-- `python3 audio/synth.py`: writes `audio/score.wav` and `beats.json` (measured grid).
-- `node render.mjs --contact` / `node render.mjs`: contact sheet / full mp4 into `out/`.
+- `python3 audio/synth.py`: writes the score into `audio/` and `beats.json` (measured grid).
+- `python3 <path-to>/shared/vo_mix.py vo/config.json`: places the voiceover on the beat grid.
+- `node render.mjs --contact` / `node render.mjs`: contact sheet / full mp4 into `out/` (git-ignored).
+- Finished, watchable encodes go in the film's `videos/` (the only MP4s tracked in git).

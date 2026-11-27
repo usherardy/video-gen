@@ -1,0 +1,15 @@
+{
+  "take": "vo/takeA.mp3", "music": "audio/score_raw.wav", "beats": "beats.json", "out": "score_vo",
+  "voice": "Victor - Documentary Voice (Nqq3Kr2AiGtk9G8OYzDp), eleven_v4",
+  "phrases": [
+    [0.00, 1.67, 0.05, "I make pixels move."],
+    [2.13, 2.64, 4.5, "Timing."],
+    [3.10, 4.89, 10.3, "Depth, from pure math."],
+    [5.37, 5.90, 16.2, "Ease."],
+    [6.30, 6.78, 18.2, "Weight."],
+    [7.18, 7.79, 20.2, "Sound."],
+    [8.26, 9.96, 22.3, "Every curve, chosen."],
+    [10.40, 11.22, 26.75, "Motion design."],
+    [11.62, 12.17, 28.6, "By Claude."]
+  ]
+}
