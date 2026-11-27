@@ -6,38 +6,30 @@
 <title>DECRU — Launch Film</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <style>
-@font-face{font-family:Seasons;font-weight:400;src:url({{SEASONS_REG}}) format("woff2")}
-@font-face{font-family:Seasons;font-weight:700;src:url({{SEASONS_BOLD}}) format("woff2")}
 @font-face{font-family:Mont;font-weight:100 900;src:url({{MONTSERRAT}}) format("woff2")}
-:root{--ink:#0B0A09;--deep:#1A1614;--paper:#EBE9E6;--muted:#A3A09C;--wine:#6B2028;--wineL:#9E2F3B;--blush:#E8CDBE}
+:root{--ink:#1A1614;--paper:#FFFFFF;--muted:#807C78;--wine:#6B2028}
 html,body{margin:0;height:100%;background:#000;overflow:hidden}
 #vp{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#000}
-#stage{position:relative;overflow:hidden;background:var(--ink);flex:none;transform-origin:center center;color:var(--paper)}
+#stage{position:relative;overflow:hidden;background:var(--paper);flex:none;transform-origin:center center;color:var(--ink);font-family:Mont,system-ui,sans-serif}
 #stage *{box-sizing:border-box}
 .layer{position:absolute;inset:0;pointer-events:none}
-.el{position:absolute;left:0;top:0;will-change:transform,opacity,filter}
-.serif{font-family:Seasons,Georgia,serif;font-weight:400;letter-spacing:-0.02em;line-height:.95;white-space:nowrap}
-.sans{font-family:Mont,system-ui,sans-serif}
-#tunnel{perspective:900px;transform-style:preserve-3d}
-.panel{position:absolute;left:50%;top:50%;border-radius:26px;border:1px solid rgba(232,205,190,.22);
-  background:linear-gradient(140deg,rgba(235,233,230,.13),rgba(235,233,230,.03) 55%,rgba(158,47,59,.10));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 30px 60px rgba(0,0,0,.35);overflow:hidden}
-.panel i{position:absolute;left:8%;height:2px;border-radius:2px;background:rgba(232,205,190,.35)}
-#cards{perspective:1800px}
-.card{position:absolute;left:0;top:0;border:1px solid rgba(235,233,230,.24);overflow:hidden;background:#111;
-  box-shadow:0 50px 90px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.5)}
-.card img{width:100%;height:100%;display:block;object-fit:cover}
-.card .sheen{position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.16),rgba(255,255,255,0) 38%,rgba(255,255,255,0) 70%,rgba(232,205,190,.10))}
-.callout .kick{font-family:Mont;font-weight:600;letter-spacing:.32em;color:var(--blush);text-transform:uppercase}
-.callout svg{display:block;fill:none;stroke:var(--blush);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
-.mask{-webkit-mask:url({{WORDMARK}}) center/100% 100% no-repeat;mask:url({{WORDMARK}}) center/100% 100% no-repeat}
-#vignette{background:radial-gradient(ellipse at center,rgba(0,0,0,0) 52%,rgba(0,0,0,.58) 100%)}
-#grain{opacity:.045}
+.el{position:absolute;left:0;top:0;will-change:transform,opacity}
+.logo{font-weight:600;letter-spacing:-0.055em;line-height:.82;white-space:nowrap;color:var(--ink)}
+.head{font-weight:600;letter-spacing:-0.04em;line-height:.98;color:var(--ink)}
+.kick{font-weight:500;letter-spacing:.35em;text-transform:uppercase;color:var(--ink)}
+.line{overflow:hidden;padding-bottom:.08em}
+.line>span{display:block}
+#phones{perspective:2000px}
+.phone{position:absolute;left:0;top:0;overflow:hidden;background:#fff;border:1px solid rgba(26,22,20,.10);box-shadow:0 40px 90px rgba(26,22,20,.16),0 8px 22px rgba(26,22,20,.08)}
+.phone img,.photo img{width:100%;height:100%;display:block;object-fit:cover}
+.photo{position:absolute;left:0;top:0;overflow:hidden;border-radius:18px;box-shadow:0 30px 70px rgba(26,22,20,.16)}
+.callout svg{display:block;fill:none;stroke:var(--ink);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.pill{border:1px solid rgba(26,22,20,.2);border-radius:999px;font-weight:500;letter-spacing:.35em;text-transform:uppercase;white-space:nowrap;color:var(--ink);background:#fff}
+#grain{opacity:.025}
 #black{background:#000;opacity:0}
-#play{position:fixed;inset:0;margin:auto;width:220px;height:72px;border-radius:36px;border:1px solid rgba(232,205,190,.45);
-  background:rgba(11,10,9,.72);color:#EBE9E6;font:600 18px/1 Mont,system-ui,sans-serif;letter-spacing:.28em;text-transform:uppercase;
-  cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:10}
-#play:hover{border-color:#E8CDBE}
+#play{position:fixed;inset:0;margin:auto;width:220px;height:68px;border-radius:34px;border:1px solid rgba(26,22,20,.25);
+  background:rgba(255,255,255,.9);color:#1A1614;font:500 15px/1 Mont,system-ui,sans-serif;letter-spacing:.35em;text-transform:uppercase;cursor:pointer;z-index:10}
+#play:hover{background:#1A1614;color:#fff}
 .render #play{display:none}
 </style>
 </head>
@@ -45,331 +37,251 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden}
 <div id="vp"><div id="stage"></div></div>
 <button id="play" type="button">▶ Play</button>
 <script>
-/* DECRU launch film. One paused GSAP master timeline; canvas layers are drawn as a pure function of t.
+/* DECRU launch film: white, minimal, one message. One paused GSAP master timeline; canvas layers are a pure function of t.
    Live: ▶ Play starts the timeline + music.mp3 together. Render: ?render=1, then window.seek(t) per frame. */
 const TL = /*TIMELINE_JSON*/null;
-const IMG = { wordmark: '{{WORDMARK}}', dmark: '{{DMARK}}', discover: '{{DISCOVER}}', feed: '{{FEED}}', mall: '{{MALL}}' };
+const IMG = { discover: '{{DISCOVER}}', feed: '{{FEED}}', mall: '{{MALL}}',
+  nicobar: '{{H_NICOBAR}}', shara: '{{H_SHARA}}', hazan: '{{H_HAZAN}}', kahanii: '{{H_KAHANII}}' };
+const ASPECT = { nicobar: 561 / 640, shara: 640 / 640, hazan: 670 / 540, kahanii: 730 / 640 };
 const RENDER = new URLSearchParams(location.search).has('render');
 if (RENDER) document.documentElement.classList.add('render');
 const stage = document.getElementById('stage');
-const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), lerp = (a, b, x) => a + (b - a) * x;
-const pr = (t, a, d) => cl((t - a) / d);
-const E = { o3: x => 1 - Math.pow(1 - x, 3), i3: x => x * x * x, io3: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, o2: x => 1 - (1 - x) * (1 - x), i2: x => x * x };
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), lerp = (a, b, x) => a + (b - a) * x, pr = (t, a, d) => cl((t - a) / d);
+const E = { o3: x => 1 - Math.pow(1 - x, 3), i3: x => x * x * x, io3: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, o2: x => 1 - (1 - x) * (1 - x) };
 function mulberry32(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 
-/* ---------- layouts (design px). Text stays inside the 80% safe zone. ---------- */
+/* ---------- layouts (design px). All text stays inside the 80% safe zone. ---------- */
 const LAYOUT = {
-  land: { W: 1920, H: 1080, safe: [192, 108, 1728, 972], cx: 960, cy: 540, grid: 36,
-    type: { y: 618, size: 40 }, point: { y: 462 },
-    pain: { size: 168, lines: ['Too many ads.', 'Too little taste.'] },
-    orb: 600, meet: { y: 372, size: 118, wmY: 600, wmW: 1120 },
-    cards: { h: 760, pos: [[1020, 548], [1330, 528], [1640, 548]], rot: [24, 0, -24], z: [-160, 0, -160] },
-    call: { x: 220, y: 540, size: 86, width: 640, align: 'left', kick: 22, icon: 72 },
-    lock: { y: 470, w: 1020 }, tag: { y: 712, size: 74 }, url: { y: 822, size: 32 } },
-  port: { W: 1080, H: 1920, safe: [108, 192, 972, 1728], cx: 540, cy: 960, grid: 34,
-    type: { y: 1100, size: 40 }, point: { y: 890 },
-    pain: { size: 158, lines: ['Too many<br>ads.', 'Too little<br>taste.'] },
-    orb: 560, meet: { y: 748, size: 112, wmY: 960, wmW: 760 },
-    cards: { h: 880, pos: [[300, 860], [540, 830], [780, 860]], rot: [26, 0, -26], z: [-200, 0, -200] },
-    call: { x: 540, y: 1500, size: 88, width: 860, align: 'center', kick: 24, icon: 74 },
-    lock: { y: 860, w: 820 }, tag: { y: 1110, size: 72 }, url: { y: 1226, size: 34 } },
+  land: { W: 1920, H: 1080, safe: [192, 108, 1728, 972], cx: 960, cy: 540, dot: 24,
+    type: { y: 572, size: 34 }, point: { y: 476 }, pain: { size: 150, lines: ['Too many ads.', 'Too little taste.'] },
+    feed: { cols: 6, w: 236, gap: 30 }, orb: 300, meet: { kickY: 366, kick: 34, y: 572, w: 1300 },
+    phones: { h: 730, pos: [[1030, 560], [1335, 540], [1640, 560]], rot: [12, 0, -12], patch: [1335, 560, 760, 520] },
+    call: { x: 232, y: 540, size: 76, width: 640, align: 'left', kick: 20, icon: 64 },
+    msg: { size: 122, a: ['Fashion intelligence,', 'built around you.'], b: ['Ranked by your taste.', 'Never by ad spend.'] },
+    lock: { x: 210, y: 452, w: 1360, align: 'left',
+      photos: [['nicobar', 1500, 560, 380], ['shara', 1735, 318, 220], ['hazan', 1235, 742, 200], ['kahanii', 1795, 742, 190]],
+      patch: [1430, 560, 820, 560], tag: { x: 212, y: 742, size: 52 }, pill: { x: 212, y: 846, size: 15 }, url: { size: 22 } } },
+  port: { W: 1080, H: 1920, safe: [108, 192, 972, 1728], cx: 540, cy: 960, dot: 24,
+    type: { y: 1012, size: 30 }, point: { y: 908 }, pain: { size: 132, lines: ['Too many<br>ads.', 'Too little<br>taste.'] },
+    feed: { cols: 3, w: 300, gap: 28 }, orb: 300, meet: { kickY: 818, kick: 34, y: 972, w: 800 },
+    phones: { h: 840, pos: [[300, 860], [540, 830], [780, 860]], rot: [14, 0, -14], patch: [540, 860, 900, 900] },
+    call: { x: 540, y: 1520, size: 80, width: 860, align: 'center', kick: 22, icon: 66 },
+    msg: { size: 90, a: ['Fashion', 'intelligence,', 'built around you.'], b: ['Ranked by', 'your taste.', 'Never by ad spend.'] },
+    lock: { x: 540, y: 640, w: 840, align: 'center',
+      photos: [['nicobar', 640, 900, 430], ['shara', 290, 1080, 250], ['hazan', 820, 1220, 220], ['kahanii', 360, 1330, 210]],
+      patch: [540, 1050, 900, 760], tag: { x: 540, y: 1500, size: 56 }, pill: { x: 540, y: 1612, size: 16 }, url: { size: 24 } } },
 };
 let L, tl, els = {}, P = {}, ctx, gctx, grainTiles = [], duckP = { v: 1 }, built = false;
-
-/* ---------- helpers ---------- */
 function div(cls, html = '', parent = stage) { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; parent.appendChild(d); return d; }
-function at(el, x, y) { gsap.set(el, { left: x, top: y, xPercent: -50, yPercent: -50 }); }
-function loadImg(src) { return new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; }); }
+function at(el, x, y, xp = -50, yp = -50) { gsap.set(el, { left: x, top: y, xPercent: xp, yPercent: yp }); }
+const lines = (arr, lastCls = '') => arr.map((s, i) => `<div class="line"><span class="${i === arr.length - 1 ? lastCls : ''}">${s}</span></div>`).join('');
+function sizeLogo(el, w) { el.style.fontSize = '100px'; const s = 100 * w / el.getBoundingClientRect().width; el.style.fontSize = s.toFixed(1) + 'px'; }
 
-/* ---------- build the stage + timeline for a layout ---------- */
+/* ---------- build ---------- */
 async function build(layoutName, startAt = 0) {
   L = LAYOUT[layoutName]; const { W, H, cx, cy } = L;
   if (tl) tl.kill(); stage.innerHTML = ''; els = {};
-  stage.style.width = W + 'px'; stage.style.height = H + 'px'; fit();
-  const R = mulberry32(7);
+  stage.style.width = W + 'px'; stage.style.height = H + 'px'; stage.style.transform = 'none';
 
-  // layers (bottom to top)
-  els.glow = div('layer', '', stage); els.glow.style.background = `radial-gradient(circle at 50% 50%, rgba(158,47,59,.55), rgba(107,32,40,.18) 32%, rgba(11,10,9,0) 62%)`;
   const fx = document.createElement('canvas'); fx.width = W; fx.height = H; fx.className = 'layer'; stage.appendChild(fx); ctx = fx.getContext('2d');
-  els.tunnel = div('layer', '', stage); els.tunnel.id = 'tunnel';
-  els.point = div('el'); Object.assign(els.point.style, { width: '22px', height: '22px', borderRadius: '50%', background: 'radial-gradient(circle,#fff,#E8CDBE 35%,#9E2F3B 60%,rgba(158,47,59,0) 72%)', boxShadow: '0 0 60px 22px rgba(158,47,59,.7), 0 0 12px 3px rgba(255,255,255,.6)' }); at(els.point, cx, L.point.y);
-  els.orbGlow = div('el'); Object.assign(els.orbGlow.style, { width: L.orb * 1.9 + 'px', height: L.orb * 1.9 + 'px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(158,47,59,.55), rgba(107,32,40,.18) 45%, rgba(0,0,0,0) 70%)' }); at(els.orbGlow, cx, cy);
-  els.orb = div('el'); Object.assign(els.orb.style, { width: L.orb + 'px', height: L.orb + 'px', borderRadius: '50%', background: 'radial-gradient(circle, #fff 0%, #F6E6DD 12%, #E8CDBE 22%, #9E2F3B 48%, rgba(107,32,40,.45) 62%, rgba(107,32,40,0) 72%)' }); at(els.orb, cx, cy);
-  els.cardGlow = div('el'); Object.assign(els.cardGlow.style, { width: W * 0.8 + 'px', height: H * 0.7 + 'px', background: 'radial-gradient(ellipse, rgba(158,47,59,.42), rgba(0,0,0,0) 65%)' }); at(els.cardGlow, L.cards.pos[1][0], L.cards.pos[1][1]);
-  els.cards = div('layer', '', stage); els.cards.id = 'cards';
+  els.point = div('el'); Object.assign(els.point.style, { width: '22px', height: '22px', borderRadius: '50%', background: '#1A1614' }); at(els.point, cx, L.point.y);
+  els.orb = div('el'); Object.assign(els.orb.style, { width: L.orb + 'px', height: L.orb + 'px', borderRadius: '50%', background: '#1A1614' }); at(els.orb, cx, cy);
+  els.rings = [0, 1].map(() => { const r = div('el'); Object.assign(r.style, { width: L.orb + 'px', height: L.orb + 'px', borderRadius: '50%', border: '1.5px solid rgba(26,22,20,.35)' }); at(r, cx, cy); return r; });
+  els.phones = div('layer', '', stage); els.phones.id = 'phones';
+  els.photos = div('layer', '', stage);
   els.text = div('layer', '', stage);
-  els.lockup = div('el'); const lw = L.lock.w, lh = Math.round(lw * 383 / 1213);
-  Object.assign(els.lockup.style, { width: lw + 'px', height: lh + 'px' }); at(els.lockup, cx, L.lock.y);
-  els.lockup.innerHTML = `<div class="mask" style="position:absolute;inset:0;background:#9E2F3B;opacity:0"></div><div class="mask" style="position:absolute;inset:0;background:#E8CDBE;opacity:0"></div><img src="${IMG.wordmark}" style="position:absolute;inset:0;width:100%;height:100%"><div class="mask" style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.95) 50%,rgba(255,255,255,0) 58%);background-size:320% 100%;background-position:100% 0"></div>`;
-  [els.gA, els.gB, els.wm, els.sweep] = els.lockup.children;
-  els.flash = div('layer', '', stage); els.flash.style.background = '#fff'; els.flash.style.opacity = 0;
-  els.vignette = div('layer', '', stage); els.vignette.id = 'vignette';
   const gc = document.createElement('canvas'); gc.width = W; gc.height = H; gc.className = 'layer'; gc.id = 'grain'; stage.appendChild(gc); gctx = gc.getContext('2d');
   els.black = div('layer', '', stage); els.black.id = 'black';
 
-  // text elements (all marked data-safe for the safe-zone check)
-  const T = (cls, html, x, y, style = {}) => { const d = div('el ' + cls, html, els.text); d.dataset.safe = 1; Object.assign(d.style, style); at(d, x, y); return d; };
-  els.type = T('sans', [...TL.typeOn.text].map(c => `<span style="opacity:0">${c === ' ' ? '&nbsp;' : c}</span>`).join(''), cx, L.type.y,
-    { fontSize: L.type.size + 'px', fontWeight: 500, letterSpacing: '.24em', textTransform: 'uppercase', whiteSpace: 'nowrap', color: '#EBE9E6' });
-  els.pain = L.pain.lines.map(s => T('serif', s, cx, cy, { fontSize: L.pain.size + 'px', textAlign: 'center', opacity: 0, textShadow: '0 10px 60px rgba(0,0,0,.6)' }));
-  els.meet = T('serif', 'Meet', cx, L.meet.y, { fontSize: L.meet.size + 'px', opacity: 0 });
-  els.meetWm = T('', `<img src="${IMG.wordmark}" style="width:100%;display:block">`, cx, L.meet.wmY, { width: L.meet.wmW + 'px', opacity: 0 });
-  els.tag = T('serif', 'Fashion, found. Not fed.', cx, L.tag.y, { fontSize: L.tag.size + 'px', opacity: 0, color: '#EBE9E6' });
-  els.url = T('sans', 'decru.co', cx, L.url.y, { fontSize: L.url.size + 'px', fontWeight: 500, letterSpacing: '.3em', color: '#E8CDBE', opacity: 0 });
+  const T = (cls, html, x, y, style = {}, xp = -50, yp = -50) => { const d = div('el ' + cls, html, els.text); d.dataset.safe = 1; Object.assign(d.style, style); at(d, x, y, xp, yp); return d; };
+  els.type = T('kick', [...TL.typeOn.text].map(c => `<span style="opacity:0">${c === ' ' ? '&nbsp;' : c}</span>`).join(''), cx, L.type.y, { fontSize: L.type.size + 'px', whiteSpace: 'nowrap' });
+  els.pain = L.pain.lines.map(s => T('head', s, cx, cy, { fontSize: L.pain.size + 'px', textAlign: 'center', whiteSpace: 'nowrap', opacity: 0 }));
+  els.meetK = T('kick', 'Meet', cx, L.meet.kickY, { fontSize: L.meet.kick + 'px', opacity: 0 });
+  els.meetLogo = T('logo', 'DECRU', cx, L.meet.y, { opacity: 0 }); sizeLogo(els.meetLogo, L.meet.w);
   const ICON = { pin: 'M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z M12 12.6a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2z', lens: 'M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13z M15.3 15.3 20.5 20.5', bag: 'M5 8h14l-1.3 12.5H6.3L5 8z M9 8V6.6a3 3 0 0 1 6 0V8' };
-  const CALL = [['01 · Find', 'pin', 'Brands from<br>every city', 1], ['02 · Find', 'lens', 'Seen it?<br>Search it.', 0], ['03 · Keep', 'bag', 'Your private<br>mall', 2]];
-  const C = L.call, alignX = C.align === 'left';
-  els.calls = CALL.map(([k, ic, h]) => {
-    const d = T('callout', `<div class="kick" style="font-size:${C.kick}px;margin-bottom:${C.kick}px">${k}</div><svg viewBox="0 0 24 24" style="width:${C.icon}px;height:${C.icon}px;margin:${alignX ? '0 0 18px -4px' : '0 auto 18px'}"><path d="${ICON[ic]}"/></svg><div class="serif" style="font-size:${C.size}px;line-height:1.02">${h}</div>`,
-      C.x, C.y, { width: C.width + 'px', textAlign: C.align, opacity: 0 });
-    if (alignX) gsap.set(d, { xPercent: 0 });
-    return d;
-  });
+  const CALL = [['01 — Find', 'pin', 'Brands from<br>every city'], ['02 — Find', 'lens', 'Seen it?<br>Search it.'], ['03 — Keep', 'bag', 'Your private<br>mall']];
+  const C = L.call, left = C.align === 'left';
+  els.calls = CALL.map(([k, ic, h]) => T('callout', `<div class="kick" style="font-size:${C.kick}px;margin-bottom:${C.kick * 1.1}px;color:#6B2028">${k}</div><svg viewBox="0 0 24 24" style="width:${C.icon}px;height:${C.icon}px;margin:${left ? '0 0 20px -4px' : '0 auto 20px'}"><path d="${ICON[ic]}"/></svg><div class="head" style="font-size:${C.size}px">${h}</div>`,
+    C.x, C.y, { width: C.width + 'px', textAlign: C.align, opacity: 0 }, left ? 0 : -50));
+  els.msgA = T('head', lines(L.msg.a), cx, cy, { fontSize: L.msg.size + 'px', textAlign: 'center', whiteSpace: 'nowrap' });
+  els.msgB = T('head', lines(L.msg.b, 'wine'), cx, cy, { fontSize: L.msg.size + 'px', textAlign: 'center', whiteSpace: 'nowrap' });
+  els.msgB.querySelectorAll('.wine').forEach(s => s.style.color = '#6B2028');
+  const K = L.lock, lx = K.align === 'left' ? 0 : -50;
+  els.lockLogo = T('logo', 'DECRU', K.x, K.y, {}, lx); sizeLogo(els.lockLogo, K.w);
+  els.tag = T('head', 'Fashion, found. Not fed.', K.tag.x, K.tag.y, { fontSize: K.tag.size + 'px', fontWeight: 500, letterSpacing: '-0.025em', whiteSpace: 'nowrap', opacity: 0 }, lx);
+  els.cta = T('', `<div class="pill" style="display:inline-block;font-size:${K.pill.size}px;padding:${K.pill.size * 1.45}px ${K.pill.size * 2.6}px">Download the app</div><span class="kick" style="font-size:${K.url.size}px;letter-spacing:.24em;text-transform:none;margin-left:${K.url.size * 1.6}px;vertical-align:middle">decru.co</span>`,
+    K.pill.x, K.pill.y, { whiteSpace: 'nowrap', opacity: 0 }, lx);
+  els.pill = els.cta.querySelector('.pill');
 
-  // tunnel panels (seeded)
-  const Z = t => 5200 * Math.pow(cl((t - 3) / 4.4), 2);
-  const cross = [4.0, 4.7, 5.25, 5.75, 6.15, 6.5, 6.8, 7.05];
-  P.panels = [];
-  for (let k = 0; k < 16; k++) {
-    const near = k < cross.length, w = 260 + R() * 420, h = 170 + R() * 300;
-    const ang = R() * Math.PI * 2, rad = (near ? 0.42 : 0.15 + R() * 0.55) * Math.min(W, H) * (near ? 1.2 : 1.0);
-    const zp = near ? 650 - Z(cross[k]) : -1200 - R() * 5200;
-    const p = div('panel', '', els.tunnel); p.style.width = w + 'px'; p.style.height = h + 'px';
-    for (let j = 0; j < 3 + (R() * 3 | 0); j++) { const i = document.createElement('i'); i.style.top = (18 + j * 16 + R() * 8) + '%'; i.style.width = (25 + R() * 55) + '%'; p.appendChild(i); }
-    P.panels.push({ el: p, x: Math.cos(ang) * rad, y: Math.sin(ang) * rad * 0.8, zp, rz: (R() - .5) * 14, ry: (R() - .5) * 30, d: R() });
-  }
-  P.Z = Z;
-
-  // cards
-  const Cd = L.cards, chH = Cd.h, chW = Math.round(chH * 720 / 1565);
-  els.cardEls = ['discover', 'feed', 'mall'].map((n, k) => {
-    const c = div('card', `<img src="${IMG[n]}"><div class="sheen"></div>`, els.cards);
-    Object.assign(c.style, { width: chW + 'px', height: chH + 'px', borderRadius: Math.round(chW * 0.12) + 'px' });
-    gsap.set(c, { left: Cd.pos[k][0], top: Cd.pos[k][1], xPercent: -50, yPercent: -50, rotationY: Cd.rot[k], z: Cd.z[k], opacity: 0 });
+  // phones: the real app screens (photo areas frosted, UI crisp)
+  const Ph = L.phones, ph = Ph.h, pw = Math.round(ph * 720 / 1565);
+  els.phoneEls = ['discover', 'feed', 'mall'].map((n, k) => {
+    const c = div('phone', `<img src="${IMG[n]}">`, els.phones);
+    Object.assign(c.style, { width: pw + 'px', height: ph + 'px', borderRadius: Math.round(pw * .12) + 'px' });
+    gsap.set(c, { left: Ph.pos[k][0], top: Ph.pos[k][1], xPercent: -50, yPercent: -50, rotationY: Ph.rot[k], opacity: 0 });
     return c;
   });
+  // hero collage: real independent-brand photos from decru.co, cropped face-free, tucked behind the wordmark
+  els.photoEls = K.photos.map(([n, x, y, w]) => { const c = div('photo', `<img src="${IMG[n]}">`, els.photos);
+    Object.assign(c.style, { width: w + 'px', height: Math.round(w * ASPECT[n]) + 'px' }); at(c, x, y); gsap.set(c, { opacity: 0 }); return c; });
 
-  // particles: grid lattice, plus seeded per-particle data
-  const g = L.grid, cols = Math.floor(W / g), rows = Math.floor(H / g), ox = (W - (cols - 1) * g) / 2, oy = (H - (rows - 1) * g) / 2;
-  const N = cols * rows; P.N = N; P.p = [];
-  for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) P.p.push({ gx: ox + i * g, gy: oy + j * g, ph: R() * 6.283, tw: 0.6 + R() * 1.8, dx: R() * W, dy: R() * H, d: R(), a: R() * 6.283, r: 0.2 + R(), hot: R() < 0.12 });
-  P.streaks = Array.from({ length: 240 }, () => ({ X: (R() * 2 - 1), Y: (R() * 2 - 1) * 0.8, z0: R(), hot: R() < 0.35 }));
-  P.rays = Array.from({ length: 64 }, (_, k) => ({ a: k / 64 * 6.283 + R() * 0.08, R: Math.hypot(W, H) * (0.45 + R() * 0.2), ph: R(), sp: 0.7 + R() * 0.8 }));
-  // wordmark targets: sample the real wordmark's alpha at its lockup size
-  const wmImg = await loadImg(IMG.wordmark), oc = document.createElement('canvas'); oc.width = lw; oc.height = lh; const octx = oc.getContext('2d');
-  octx.drawImage(wmImg, 0, 0, lw, lh); const dat = octx.getImageData(0, 0, lw, lh).data, pts = [];
-  for (let y = 0; y < lh; y += 2) for (let x = 0; x < lw; x += 2) if (dat[(y * lw + x) * 4 + 3] > 140) pts.push([x, y]);
-  const R2 = mulberry32(99);
-  P.p.forEach(p => { const q = pts[(R2() * pts.length) | 0]; p.tx = cx - lw / 2 + q[0]; p.ty = L.lock.y - lh / 2 + q[1]; p.cd = R2() * 0.6; });
+  // seeded data: halftone lattice, feed cards, grain
+  const R = mulberry32(7), g = L.dot, cols = Math.floor(W / g), rows = Math.floor(H / g), ox = (W - (cols - 1) * g) / 2, oy = (H - (rows - 1) * g) / 2;
+  P.dots = []; for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) P.dots.push({ x: ox + i * g, y: oy + j * g, d: R(), r: .3 + R() });
+  const F = L.feed, fx0 = (W - (F.cols * F.w + (F.cols - 1) * F.gap)) / 2; P.feed = [];
+  for (let c = 0; c < F.cols; c++) { let y = -R() * 300; for (let k = 0; k < 9; k++) { const h = F.w * (1.15 + R() * .55); P.feed.push({ x: fx0 + c * (F.w + F.gap), y, w: F.w, h, ad: R() < .5, spd: .85 + (c % 2) * .3, d: R(), tone: R() }); y += h + F.gap; } }
+  P.feedLoop = Math.max(...P.feed.map(f => f.y + f.h)) + F.gap;
   for (let k = 0; k < 4; k++) { const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'), im = x.createImageData(256, 256), r = mulberry32(500 + k); for (let i = 0; i < im.data.length; i += 4) { const v = r() * 255; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; } x.putImageData(im, 0, 0); grainTiles[k] = c; }
 
-  buildTimeline();
-  built = true; seekTo(startAt);
+  fit(); buildTimeline(); built = true; seekTo(startAt);
 }
 
-/* ---------- the master timeline ---------- */
+/* ---------- master timeline ---------- */
 function buildTimeline() {
-  const { W, H, cx, cy } = L;
+  const { W, H } = L, S = TL.shots;
   tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
-  tl.set({}, {}, TL.duration);                      // fixed 30 s length
-  const S = TL.shots;
+  tl.set({}, {}, TL.duration);
 
-  // 0–3 · point of light pulses twice, spreads into the grid; type-on
-  gsap.set(els.point, { scale: 0, opacity: 0 }); gsap.set(els.glow, { opacity: 0 }); gsap.set([els.orb, els.orbGlow], { scale: 0, opacity: 0, filter: 'brightness(1)' });
-  tl.to(els.point, { scale: 1, opacity: 1, duration: .35, ease: 'expo.out' }, .15)
-    .to(els.point, { scale: 2.6, duration: .22, ease: 'power2.out' }, .45).to(els.point, { scale: 1, duration: .35, ease: 'power2.in' }, .67)
-    .to(els.point, { scale: 3.2, duration: .22, ease: 'power2.out' }, 1.05).to(els.point, { scale: 1.3, duration: .35, ease: 'power2.in' }, 1.27)
-    .to(els.point, { scale: 6, opacity: 0, filter: 'blur(6px)', duration: .9, ease: 'expo.out' }, 1.45)
-    .to(els.glow, { opacity: .35, duration: 1.4, ease: 'sine.inOut' }, 1.3);
-  const chars = [...els.type.children];
-  chars.forEach((c, k) => tl.set(c, { opacity: 1 }, TL.typeOn.start + k * TL.typeOn.step));
-  tl.to(els.type, { opacity: 0, y: -14, filter: 'blur(6px)', duration: .25, ease: 'power2.in' }, 2.7);
+  // 0–3 · an ink point pulses twice; the halftone grid blooms out of it; type-on
+  gsap.set(els.point, { scale: 0 }); gsap.set([els.orb, ...els.rings], { scale: 0, opacity: 0 });
+  tl.to(els.point, { scale: 1, duration: .35, ease: 'expo.out' }, .15)
+    .to(els.point, { scale: 1.9, duration: .2, ease: 'power2.out' }, .45).to(els.point, { scale: 1, duration: .32, ease: 'power2.in' }, .65)
+    .to(els.point, { scale: 2.2, duration: .2, ease: 'power2.out' }, 1.05).to(els.point, { scale: 1, duration: .32, ease: 'power2.in' }, 1.25)
+    .to(els.point, { scale: 0, duration: .45, ease: 'power3.in' }, 1.6);
+  [...els.type.children].forEach((c, k) => tl.set(c, { opacity: 1 }, TL.typeOn.start + k * TL.typeOn.step));
+  tl.to(els.type, { opacity: 0, y: -12, duration: .25, ease: 'power2.in' }, 2.72);
 
-  // 3–7 · push through glass; hard text cuts on the beat
+  // 3–7 · the feed; hard text cuts on the beat
   const [p1, p2] = els.pain;
-  tl.set(p1, { opacity: 1 }, S.push).fromTo(p1, { scale: 1.14, filter: 'blur(14px)' }, { scale: 1, filter: 'blur(0px)', duration: .4, ease: 'expo.out', immediateRender: false }, S.push)
-    .to(p1, { scale: 1.05, duration: 1.6, ease: 'none' }, S.push + .4).set(p1, { opacity: 0 }, 5.0)
-    .set(p2, { opacity: 1 }, 5.0).fromTo(p2, { scale: 1.14, filter: 'blur(14px)' }, { scale: 1, filter: 'blur(0px)', duration: .4, ease: 'expo.out', immediateRender: false }, 5.0)
-    .to(p2, { scale: 1.04, duration: 1.5, ease: 'none' }, 5.4)
-    .to(p2, { scale: .12, opacity: 0, filter: 'blur(16px)', duration: .8, ease: 'power3.in' }, 6.95)
-    .to(els.glow, { opacity: .55, duration: 3, ease: 'sine.inOut' }, 3.5);
+  tl.set(p1, { opacity: 1 }, S.push).fromTo(p1, { scale: 1.1, filter: 'blur(10px)' }, { scale: 1, filter: 'blur(0px)', duration: .4, ease: 'expo.out', immediateRender: false }, S.push)
+    .set(p1, { opacity: 0 }, 5.0).set(p2, { opacity: 1 }, 5.0)
+    .fromTo(p2, { scale: 1.1, filter: 'blur(10px)' }, { scale: 1, filter: 'blur(0px)', duration: .4, ease: 'expo.out', immediateRender: false }, 5.0)
+    .to(p2, { scale: .1, opacity: 0, filter: 'blur(12px)', duration: .75, ease: 'power3.in' }, 6.95);
 
-  // 7–12 · everything sucked into one orb, compress, flash
-  tl.to(els.orbGlow, { scale: 1, opacity: 1, duration: 4.2, ease: 'power1.inOut' }, 7.0)
-    .to(els.orb, { scale: .22, opacity: 1, duration: .6, ease: 'expo.out' }, 7.0)
-    .to(els.orb, { scale: 1, duration: 3.6, ease: 'power1.inOut' }, 7.6)
-    .to(els.orb, { scale: .16, filter: 'brightness(2.2)', duration: .65, ease: 'power4.in' }, 11.2)
-    .to(els.orbGlow, { scale: .5, duration: .65, ease: 'power4.in' }, 11.2)
-    .to(els.flash, { opacity: 1, duration: .17, ease: 'power3.in' }, 11.8)
-    .set([els.orb, els.orbGlow], { opacity: 0 }, S.meet)
-    .to(els.flash, { opacity: 0, duration: .55, ease: 'power2.out' }, S.meet + .02)
-    .to(els.glow, { opacity: .85, duration: 4.2, ease: 'sine.in' }, 7.0).set(els.glow, { opacity: .3 }, S.meet);
+  // 7–12 · the noise collapses into one ink dot, which grows, compresses and floods the frame
+  tl.to(els.orb, { scale: .12, opacity: 1, duration: .5, ease: 'expo.out' }, 8.6).to(els.orb, { scale: 1, duration: 2.6, ease: 'power1.inOut' }, 9.1);
+  els.rings.forEach((r, k) => tl.fromTo(r, { scale: .9, opacity: .8 }, { scale: 2.6, opacity: 0, duration: 1.4, ease: 'power2.out', immediateRender: false }, 9.6 + k * .8));
+  const cover = Math.hypot(W, H) * 1.1 / L.orb;
+  tl.to(els.orb, { scale: .14, duration: .6, ease: 'power4.in' }, 11.2).to(els.orb, { scale: cover, duration: .17, ease: 'power3.in' }, 11.82)
+    .set(els.orb, { opacity: 0 }, S.meet);
 
-  // 12 · bass hit: "Meet DECRU." slams in (+ camera shake)
-  tl.set([els.meet, els.meetWm], { opacity: 1 }, S.meet)
-    .fromTo(els.meet, { scale: 1.3, filter: 'blur(18px)' }, { scale: 1, filter: 'blur(0px)', duration: .5, ease: 'expo.out', immediateRender: false }, S.meet)
-    .fromTo(els.meetWm, { scale: 1.12, filter: 'blur(26px)' }, { scale: 1, filter: 'blur(0px)', duration: .55, ease: 'expo.out', immediateRender: false }, S.meet)
-    .to([els.meet, els.meetWm], { y: -70, opacity: 0, filter: 'blur(12px)', duration: .32, ease: 'power2.in', stagger: .04 }, 12.85);
-  shake(S.meet, .5, 14);
+  // 12 · hard cut to white: MEET DECRU (the real wordmark: Montserrat SemiBold, -0.055em)
+  tl.set([els.meetK, els.meetLogo], { opacity: 1 }, S.meet)
+    .fromTo(els.meetLogo, { scale: 1.08, filter: 'blur(14px)' }, { scale: 1, filter: 'blur(0px)', duration: .55, ease: 'expo.out', immediateRender: false }, S.meet)
+    .fromTo(els.meetK, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: 'expo.out', immediateRender: false }, S.meet + .08)
+    .to([els.meetK, els.meetLogo], { y: -50, opacity: 0, filter: 'blur(8px)', duration: .3, ease: 'power2.in', stagger: .03 }, 12.85);
+  shake(S.meet, .45, 10);
 
-  // 12–20 · product reveal: three real app screens in 3D, callouts every 2.5 s
-  const Cd = L.cards; gsap.set(els.cardGlow, { opacity: 0, scale: .8 });
-  tl.to(els.cardGlow, { opacity: 1, scale: 1, duration: 1.2, ease: 'power2.out' }, 12.9);
-  els.cardEls.forEach((c, k) => {
-    tl.fromTo(c, { y: 520, rotationX: 38, opacity: 0, filter: 'blur(14px) brightness(.7)' },
-      { y: 0, rotationX: 0, opacity: 1, filter: 'blur(0px) brightness(.85)', duration: .85, ease: 'expo.out', immediateRender: false }, 12.95 + [1, 0, 2][k] * .1);
-    tl.to(c, { y: -18, rotationY: Cd.rot[k] + (k === 1 ? 3 : 5), duration: 3.15, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 13.75);
+  // 12–20 · the real app, three features
+  const Ph = L.phones;
+  els.phoneEls.forEach((c, k) => {
+    tl.fromTo(c, { y: 380, opacity: 0, filter: 'blur(10px)' }, { y: 0, opacity: 1, filter: 'blur(0px)', duration: .85, ease: 'expo.out', immediateRender: false }, 12.95 + [1, 0, 2][k] * .1)
+      .to(c, { y: -14, rotationY: Ph.rot[k] + (k === 1 ? 2 : 4), duration: 3.15, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 13.75);
   });
-  const CALLAT = TL.callouts, FOCUS = [1, 0, 2];
+  const FOCUS = [1, 0, 2];
   els.calls.forEach((c, i) => {
-    const T0 = CALLAT[i], T1 = i < 2 ? CALLAT[i + 1] - .32 : 19.7, path = c.querySelector('path'), len = path.getTotalLength();
+    const T0 = TL.callouts[i], T1 = i < 2 ? TL.callouts[i + 1] - .32 : 19.7, path = c.querySelector('path'), len = path.getTotalLength(), left = L.call.align === 'left';
     gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-    const from = L.call.align === 'left' ? { x: -60 } : { y: 46 };
-    tl.fromTo(c, { ...from, opacity: 0, filter: 'blur(10px)' }, { x: 0, y: 0, opacity: 1, filter: 'blur(0px)', duration: .75, ease: 'expo.out', immediateRender: false }, T0)
+    tl.fromTo(c, { ...(left ? { x: -50 } : { y: 40 }), opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: .75, ease: 'expo.out', immediateRender: false }, T0)
       .to(path, { strokeDashoffset: 0, duration: .9, ease: 'power2.inOut' }, T0 + .1)
-      .to(c, { opacity: 0, filter: 'blur(8px)', ...(L.call.align === 'left' ? { x: 40 } : { y: -30 }), duration: .3, ease: 'power2.in' }, T1);
-    els.cardEls.forEach((card, k) => tl.to(card, k === FOCUS[i]
-      ? { scale: 1.08, z: Cd.z[k] + 90, filter: 'blur(0px) brightness(1.05)', duration: .7, ease: 'expo.out' }
-      : { scale: .95, z: Cd.z[k] - 40, filter: 'blur(1.5px) brightness(.55)', duration: .7, ease: 'expo.out' }, T0));
+      .to(c, { opacity: 0, ...(left ? { x: 30 } : { y: -24 }), duration: .3, ease: 'power2.in' }, T1);
+    els.phoneEls.forEach((p, k) => tl.to(p, k === FOCUS[i] ? { scale: 1.06, opacity: 1, duration: .7, ease: 'expo.out' } : { scale: .96, opacity: .42, duration: .7, ease: 'expo.out' }, T0));
   });
+  els.phoneEls.forEach((c, k) => tl.to(c, { y: '+=140', opacity: 0, filter: 'blur(8px)', duration: .45, ease: 'power2.in' }, 19.8 + k * .06));
 
-  // 20–26 · energy builds: cards collapse to the centre, particles lock into the wordmark
-  els.cardEls.forEach((c, k) => {
-    tl.to(c, { x: cx - Cd.pos[k][0], y: cy - Cd.pos[k][1], rotationY: 0, rotationZ: [-28, 0, 28][k], scale: .16, filter: 'blur(5px) brightness(2.4)', duration: .7, ease: 'power3.in' }, 19.85 + k * .05)
-      .to(c, { opacity: 0, duration: .15, ease: 'none' }, 20.5);
-  });
-  tl.to(els.cardGlow, { opacity: 0, duration: .5 }, 20.2).to(els.glow, { opacity: 1, duration: 3.6, ease: 'sine.in' }, 20.3)
-    .fromTo(els.orbGlow, { scale: .2, opacity: 0 }, { scale: .9, opacity: .8, duration: 3.4, ease: 'power2.in', immediateRender: false }, 20.4).to(els.orbGlow, { opacity: 0, scale: 1.4, duration: .5, ease: 'power2.out' }, 23.85);
-  gsap.set(els.lockup, { opacity: 0, filter: 'brightness(1)' });
-  tl.set(els.lockup, { opacity: 1 }, 23.86).fromTo(els.wm, { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: .14, ease: 'none', immediateRender: false }, 23.86)
-    .to(els.sweep, { backgroundPosition: '0% 0', duration: .95, ease: 'power2.inOut' }, 24.0);
-  // glitch-shimmer at 24.0: stepped RGB-split slices
-  const steps = [[24.00, 7, -5, 'inset(10% 0 55% 0)'], [24.05, -9, 6, 'inset(48% 0 12% 0)'], [24.10, 5, -3, 'inset(0 0 70% 0)'], [24.16, -4, 8, 'inset(62% 0 0 0)'], [24.23, 3, -2, 'inset(30% 0 35% 0)']];
-  steps.forEach(([t, a, b, clip]) => tl.set(els.gA, { opacity: .9, x: a, clipPath: clip }, t).set(els.gB, { opacity: .8, x: b, clipPath: clip }, t).set(els.wm, { x: a * .3 }, t));
-  tl.set([els.gA, els.gB], { opacity: 0 }, 24.32).set(els.wm, { x: 0 }, 24.32);
-  tl.to(els.lockup, { scale: 1.035, duration: .07, ease: 'power2.out' }, 24.95).to(els.lockup, { scale: 1, duration: .6, ease: 'power3.out' }, 25.02)
-    .to(els.glow, { opacity: .55, duration: 1.2, ease: 'power2.out' }, 25.0);
-  shake(24.95, .35, 6);
+  // 20–24 · the message: each line rises on its own beat
+  const rise = (el, times, out) => { const spans = [...el.querySelectorAll('.line>span')]; gsap.set(spans, { yPercent: 110 }); gsap.set(el, { opacity: 0 }); tl.set(el, { opacity: 1 }, times[0]);
+    spans.forEach((s, i) => tl.to(s, { yPercent: 0, duration: .7, ease: 'expo.out' }, times[i])); tl.to(el, { opacity: 0, y: -30, duration: .25, ease: 'power2.in' }, out); };
+  const nA = L.msg.a.length, nB = L.msg.b.length;
+  rise(els.msgA, L.msg.a.map((_, i) => i === nA - 1 ? 21.35 : 20.3 + i * .14), 22.5);
+  rise(els.msgB, L.msg.b.map((_, i) => i === nB - 1 ? 23.1 : 22.7 + i * .14), 23.82);
 
-  // 26–30 · hold, tagline, url, final beat, cut to black
-  tl.to(els.lockup, { scale: 1.03, duration: 4.4, ease: 'sine.inOut' }, 25.1)
-    .fromTo(els.tag, { y: 26, opacity: 0, filter: 'blur(10px)' }, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out', immediateRender: false }, 26.0)
-    .fromTo(els.url, { y: 20, opacity: 0, filter: 'blur(8px)' }, { y: 0, opacity: 1, filter: 'blur(0px)', duration: .9, ease: 'power3.out', immediateRender: false }, 28.1)
-    .to(els.lockup, { filter: 'brightness(1.6)', duration: .06, ease: 'none' }, S.finalBeat).to(els.lockup, { filter: 'brightness(1)', duration: .4, ease: 'power2.out' }, S.finalBeat + .06)
-    .to(els.glow, { opacity: .95, duration: .06 }, S.finalBeat).to(els.glow, { opacity: .5, duration: .45 }, S.finalBeat + .06)
+  // 24–30 · the lockup: the site's hero, rebuilt — the wordmark over independent brands
+  gsap.set(els.lockLogo, { clipPath: 'inset(0 100% 0 0)' });
+  tl.to(els.lockLogo, { clipPath: 'inset(0 0% 0 0)', duration: .5, ease: 'power3.out' }, 24.0);
+  els.photoEls.forEach((c, k) => tl.fromTo(c, { y: 90, opacity: 0, scale: .94 }, { y: 0, opacity: 1, scale: 1, duration: .8, ease: 'expo.out', immediateRender: false }, 24.08 + k * .09));
+  tl.to(els.photoEls, { y: -8, duration: .07, ease: 'power2.out' }, 24.95).to(els.photoEls, { y: 0, duration: .5, ease: 'power3.out' }, 25.02);
+  tl.fromTo(els.tag, { y: 24, opacity: 0, filter: 'blur(8px)' }, { y: 0, opacity: 1, filter: 'blur(0px)', duration: .9, ease: 'power3.out', immediateRender: false }, 26.0)
+    .fromTo(els.cta, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .8, ease: 'power3.out', immediateRender: false }, 28.1)
+    .to([els.lockLogo, els.photos], { scale: 1.015, duration: 4.4, ease: 'sine.inOut' }, 25.1)
+    .to(els.pill, { backgroundColor: '#1A1614', color: '#ffffff', borderColor: '#1A1614', duration: .12, ease: 'none' }, S.finalBeat)
     .set(els.black, { opacity: 1 }, S.black);
 
-  // audio cues + ducking (live only; seeking in render mode suppresses callbacks)
-  TL.cues.forEach(c => tl.call(sfx, [c.f, c.gain], Math.max(0, c.at - (TL.sfx[c.f] || {}).peak || 0)));
+  // audio cues + ducking (live only)
+  TL.cues.forEach(c => tl.call(sfx, [c.f, c.gain], Math.max(0, c.at - ((TL.sfx[c.f] || {}).peak || 0))));
   [...TL.typeOn.text].forEach((ch, k) => { if (ch !== ' ') tl.call(sfx, ['sfx_tick.mp3', TL.typeOn.tickGain], TL.typeOn.start + k * TL.typeOn.step); });
   tl.call(startVO, null, TL.vo.start);
-  TL.vo.phrases.forEach(p => {
-    const len = (p.src[1] != null ? p.src[1] - p.src[0] : 1.67) / (p.tempo || 1);
-    tl.to(duckP, { v: TL.vo.duck, duration: .15, ease: 'none' }, p.t - .1).to(duckP, { v: 1, duration: .15, ease: 'none' }, p.t + len + .02);
-  });
+  TL.vo.phrases.forEach(p => { const len = (p.src[1] != null ? p.src[1] - p.src[0] : 1.67) / (p.tempo || 1);
+    tl.to(duckP, { v: TL.vo.duck, duration: .15, ease: 'none' }, p.t - .1).to(duckP, { v: 1, duration: .15, ease: 'none' }, p.t + len + .02); });
   tl.eventCallback('onComplete', onEnd);
 }
-
 function shake(t0, dur, amp) {
-  const r = mulberry32(Math.round(t0 * 100)), n = Math.round(dur / .04);
-  for (let k = 0; k < n; k++) { const a = amp * (1 - k / n); tl.to(els.text.parentNode === stage ? [els.text, els.lockup, els.cards] : [], { x: (r() - .5) * 2 * a, y: (r() - .5) * 2 * a, duration: .04, ease: 'none', overwrite: false }, t0 + k * .04); }
-  tl.to([els.text, els.lockup, els.cards], { x: 0, y: 0, duration: .05, ease: 'none' }, t0 + n * .04);
+  const r = mulberry32(Math.round(t0 * 100)), n = Math.round(dur / .04), tg = [els.text, els.phones, els.photos];
+  for (let k = 0; k < n; k++) { const a = amp * (1 - k / n); tl.to(tg, { x: (r() - .5) * 2 * a, y: (r() - .5) * 2 * a, duration: .04, ease: 'none' }, t0 + k * .04); }
+  tl.to(tg, { x: 0, y: 0, duration: .05, ease: 'none' }, t0 + n * .04);
 }
 
-/* ---------- per-frame drawing: tunnel + canvas particles/lines + grain (pure function of t) ---------- */
+/* ---------- per-frame canvas: halftone dots, the feed, the collapse, grain (pure function of t) ---------- */
+function rr(x, y, w, h, r) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); }
 function frame(t) {
-  const { W, H, cx, cy } = L;
-  // tunnel panels
-  const Zc = P.Z(t), suck = t > 7;
-  P.panels.forEach(p => {
-    let ze = p.zp + Zc, s = 1, x = p.x, y = p.y, rz = p.rz, op = cl((ze + 6400) / 2200) * (1 - cl((ze - 520) / 300));
-    if (t < 3.0 || ze > 840) op = 0;
-    if (suck) { const k = E.i3(pr(t, 7 + p.d * .7, 2.1)); x *= 1 - k; y *= 1 - k; s = 1 - k; rz += k * 140; op *= 1 - k; ze = lerp(ze, -300, k); }
-    const blur = Math.max(0, (ze - 260) / 70) + Math.max(0, (-ze - 2600) / 700);
-    p.el.style.opacity = op.toFixed(3); p.el.style.display = op < .01 ? 'none' : '';
-    p.el.style.transform = `translate(-50%,-50%) translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,${ze.toFixed(1)}px) rotateY(${p.ry}deg) rotateZ(${rz.toFixed(1)}deg) scale(${s.toFixed(3)})`;
-    p.el.style.filter = blur > .3 ? `blur(${Math.min(18, blur).toFixed(1)}px)` : '';
-  });
-
-  // canvas
-  ctx.clearRect(0, 0, W, H); ctx.globalCompositeOperation = 'lighter';
-  const dot = (x, y, a, hot, sz = 2) => { if (a <= .01) return; ctx.fillStyle = hot ? `rgba(232,205,190,${a})` : `rgba(235,233,230,${a})`; ctx.fillRect(x - sz / 2, y - sz / 2, sz, sz); };
-  const diag = Math.hypot(W, H) / 2;
-  if (t < 7) {                                       // grid: wave out from the point, then zoom with the push
-    const waveR = E.o2(pr(t, 1.35, 1.5)) * diag * 1.05, zoom = 1 + 2.4 * E.i2(pr(t, 3, 4)), fade = 1 - pr(t, 4.2, 2.4);
-    const px = cx, py = L.point.y;
-    for (const p of P.p) {
-      const d = Math.hypot(p.gx - px, p.gy - py); if (d > waveR) continue;
-      const front = Math.exp(-Math.pow((waveR - d) / 60, 2)), tw = .55 + .45 * Math.sin(t * p.tw * 2 + p.ph);
-      const x = cx + (p.gx - cx) * zoom, y = cy + (p.gy - cy) * zoom;
-      dot(x, y, (0.3 * tw + 0.9 * front) * fade, p.hot || front > .5, 2 + front * 2);
+  const { W, H, cx, cy } = L; ctx.clearRect(0, 0, W, H);
+  const dot = (x, y, a, r = 1.3) => { if (a < .01) return; ctx.fillStyle = `rgba(26,22,20,${a.toFixed(3)})`; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill(); };
+  const ellipse = (x, y, [ex, ey, ew, eh]) => { const d = Math.hypot((x - ex) / (ew / 2), (y - ey) / (eh / 2)); return cl(1 - (d - .45) / .55); };
+  // halftone: blooms out of the point, softens under the feed, spirals into the dot
+  if (t < 10.2) {
+    const reach = Math.hypot(W, H) * .62, R0 = E.o2(pr(t, 1.45, 1.4)) * reach, px = L.cx, py = L.point.y;
+    const base = t < 3 ? .2 : lerp(.2, .09, pr(t, 3, .6));
+    for (const p of P.dots) {
+      const d = Math.hypot(p.x - px, p.y - py); if (d > R0) continue;
+      const front = Math.exp(-Math.pow((R0 - d) / 50, 2)) * (1 - pr(t, 3, .4)), fade = Math.max(0, 1 - d / reach) * .6 + .4;
+      let x = p.x, y = p.y; const k = E.i3(pr(t, 7 + p.d * 1.4, 2.3));
+      if (k > 0) { const r0 = Math.hypot(x - cx, y - cy), ang = Math.atan2(y - cy, x - cx) + k * 2.6 * p.r, r = r0 * (1 - k); x = cx + Math.cos(ang) * r; y = cy + Math.sin(ang) * r; }
+      dot(x, y, (base * fade + .55 * front) * (1 - pr(t, 9.6, .5)), 1.3 + front * 1.4);
     }
   }
-  if (t > 3 && t < 7.8) {                            // data lines rushing past
-    const ph = .12 * Math.pow(t - 3, 2) + .16 * (t - 3), a0 = pr(t, 3, .5) * (1 - pr(t, 7, .7));
-    ctx.lineWidth = 1.2;
-    for (const s of P.streaks) {
-      const z = ((s.z0 - ph) % 1 + 1) % 1 + .02, z2 = z + .05 + .05 * pr(t, 4, 3);
-      const k1 = .09 / z, k2 = .09 / z2, x1 = cx + s.X * W * .5 * k1, y1 = cy + s.Y * H * .5 * k1, x2 = cx + s.X * W * .5 * k2, y2 = cy + s.Y * H * .5 * k2;
-      const a = a0 * (1 - z) * .8; if (a < .02) continue;
-      ctx.strokeStyle = s.hot ? `rgba(158,47,59,${a})` : `rgba(232,205,190,${a * .7})`; ctx.beginPath(); ctx.moveTo(x2, y2); ctx.lineTo(x1, y1); ctx.stroke();
+  // the feed: grey cards, half of them "Sponsored", scrolling faster and faster, then collapsing into the dot
+  if (t >= 3 && t < 10) {
+    const s = t - 3, scroll = 40 * s + 70 * s * s + 260 * E.o3(pr(t, 3.85, .35)), inA = pr(t, 3, .2);
+    ctx.font = `600 ${Math.round(L.feed.w * .055)}px Mont`; ctx.textBaseline = 'middle';
+    for (const f of P.feed) {
+      let y = ((f.y - scroll * f.spd) % P.feedLoop + P.feedLoop) % P.feedLoop - 260, x = f.x, sc = 1;
+      const k = E.i3(pr(t, 7 + f.d * .9, 1.6));
+      if (k > 0) { const fx = x + f.w / 2, fy = y + f.h / 2; x = lerp(fx, cx, k) - f.w / 2; y = lerp(fy, cy, k) - f.h / 2; sc = 1 - k; }
+      if (sc <= .01 || y > H + 20 || y + f.h < -20) continue;
+      ctx.save(); ctx.translate(x + f.w / 2, y + f.h / 2); ctx.scale(sc, sc); ctx.globalAlpha = inA * (1 - k * .3);
+      const w = f.w, h = f.h; rr(-w / 2, -h / 2, w, h, 16); ctx.fillStyle = '#F2F0ED'; ctx.fill();
+      rr(-w / 2 + 10, -h / 2 + 10, w - 20, h * .66, 10); ctx.fillStyle = f.tone > .5 ? '#E6E3DF' : '#EBE8E4'; ctx.fill();
+      ctx.fillStyle = '#DEDAD5'; rr(-w / 2 + 12, -h / 2 + h * .66 + 22, w * .62, 9, 4); ctx.fill(); rr(-w / 2 + 12, -h / 2 + h * .66 + 40, w * .38, 9, 4); ctx.fill();
+      if (f.ad) { const tw = ctx.measureText('Sponsored').width + 22; rr(-w / 2 + 20, -h / 2 + 20, tw, 26, 13); ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.fill(); ctx.fillStyle = 'rgba(26,22,20,.62)'; ctx.fillText('Sponsored', -w / 2 + 31, -h / 2 + 33.5); }
+      ctx.restore();
     }
+    const a = (1 - pr(t, 6.95, .6)) * inA;   // a soft white field keeps the centre message clean
+    if (a > 0) { const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(W, H) * .42); g.addColorStop(0, `rgba(255,255,255,${.96 * a})`); g.addColorStop(.55, `rgba(255,255,255,${.85 * a})`); g.addColorStop(1, 'rgba(255,255,255,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
   }
-  if (t >= 7 && t < 12) {                            // everything spirals into the orb
-    for (const p of P.p) {
-      const k = E.i3(pr(t, 7 + p.d * 1.6, 3.2)), a0 = pr(t, 7, .5);
-      const r0 = Math.hypot(p.dx - cx, p.dy - cy), ang = Math.atan2(p.dy - cy, p.dx - cx) + k * 3.2 * p.r;
-      const r = r0 * (1 - k) + 6, x = cx + Math.cos(ang) * r, y = cy + Math.sin(ang) * r;
-      dot(x, y, a0 * (.22 + .5 * k) * (1 - pr(t, 11.3, .5)), p.hot || k > .6, 1.6);
-    }
-  }
-  if (t >= 12 && t < 20.4) {                         // dust drifting around the product
-    const a0 = pr(t, 12.3, .8) * .2;
-    for (let i = 0; i < P.p.length; i += 2) { const p = P.p[i]; dot(p.dx + Math.sin(t * .23 + p.ph) * 34, p.dy + Math.cos(t * .19 + p.a) * 26, a0 * (.5 + .5 * Math.sin(t * p.tw + p.ph)), p.hot, 1.6); }
-  }
-  if (t >= 20.3 && t < 24.6) {                       // burst from the collapsed cards, swirl, lock into the wordmark
-    const fadeOut = 1 - pr(t, 24.0, .5);
-    for (const p of P.p) {
-      const swirl = s => { const k = E.o3(pr(s, 20.5, 1.4)), r = 10 + k * (120 + p.r * Math.min(W, H) * .42), a = p.a + k * 2.4 + (s - 20.5) * .9 * p.r; return [cx + Math.cos(a) * r, cy + Math.sin(a) * r * .8]; };
-      const c0 = 21.9 + p.cd, k = E.io3(pr(t, c0, 1.95 - p.cd * .5));
-      let [x, y] = t < c0 ? swirl(t) : swirl(c0);
-      x = lerp(x, p.tx, k); y = lerp(y, p.ty, k);
-      dot(x, y, pr(t, 20.45, .25) * (.8 + .2 * k) * fadeOut, p.hot || k > .9, 2.4);
-    }
-    const ra = pr(t, 20.3, .6) * (1 - pr(t, 23.4, .6));  // converging light lines
-    if (ra > 0) { ctx.lineWidth = 1.4; for (const r of P.rays) { const f = ((r.ph - (t - 20.3) * .55 * r.sp) % 1 + 1) % 1, R1 = r.R * f, R2 = r.R * Math.max(0, f - .12);
-      ctx.strokeStyle = `rgba(232,205,190,${(ra * .9 * (1 - f)).toFixed(3)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(cx + Math.cos(r.a) * R1, cy + Math.sin(r.a) * R1 * .8); ctx.lineTo(cx + Math.cos(r.a) * R2, cy + Math.sin(r.a) * R2 * .8); ctx.stroke(); } }
-  }
-  if (t >= 24.6) {                                    // a few embers around the lockup
-    const a0 = pr(t, 24.6, 1) * .14 * (1 - pr(t, 29.9, .05));
-    for (let i = 0; i < P.p.length; i += 4) { const p = P.p[i]; dot(p.dx + Math.sin(t * .15 + p.ph) * 22, p.dy - ((t - 24.6) * 14 * p.r) % H, a0, p.hot, 1.5); }
-  }
-  ctx.globalCompositeOperation = 'source-over';
-  // film grain (seeded tiles, 24 fps)
+  // halftone patches: behind the phones, and behind the lockup with a shimmer sweep at 24.0
+  const patch = (rect, a0, sweep) => { for (const p of P.dots) { const m = ellipse(p.x, p.y, rect); if (m <= 0) continue; let a = a0 * m, r = 1.3;
+    if (sweep != null) { const sw = Math.exp(-Math.pow((p.x - sweep) / 70, 2)); a += sw * .35 * m; r += sw * 1.2; } dot(p.x, p.y, a, r); } };
+  if (t >= 12.6 && t < 20.4) patch(L.phones.patch, .2 * pr(t, 12.9, .6) * (1 - pr(t, 19.8, .5)));
+  if (t >= 23.95) patch(L.lock.patch, .22 * pr(t, 23.95, .3) * (1 - pr(t, 29.9, .05)), t < 24.7 ? lerp(-200, W + 200, E.io3(pr(t, 24.0, .65))) : null);
+  // grain (seeded tiles, 24 fps)
   const gi = Math.floor(t * 24), r = mulberry32(gi + 11), tile = grainTiles[gi % 4], ox = -(r() * 256 | 0), oy = -(r() * 256 | 0);
   gctx.clearRect(0, 0, W, H); for (let x = ox; x < W; x += 256) for (let y = oy; y < H; y += 256) gctx.drawImage(tile, x, y);
 }
 
 /* ---------- audio (live mode); missing files fail silently ---------- */
-const AUD = {};
+const AUD = {}; let live = false;
 function mkAudio(f) { const a = new Audio(); a.preload = 'auto'; a.addEventListener('error', () => { a._bad = true; }); a.src = f; return a; }
 function initAudio() { if (AUD.music) return; AUD.music = mkAudio(TL.music.file); AUD.vo = mkAudio(TL.vo.file); Object.keys(TL.sfx).forEach(f => AUD[f] = mkAudio(f)); }
 function sfx(f, gain) { if (RENDER || !live) return; const b = AUD[f]; if (!b || b._bad) return; try { const a = b.cloneNode(); a.volume = cl(gain); a.play().catch(() => {}); } catch (e) {} }
 function startVO() { if (RENDER || !live) return; const v = AUD.vo; if (!v || v._bad) return; try { v.currentTime = 0; v.volume = TL.vo.gain; v.play().catch(() => {}); } catch (e) {} }
-let live = false;
-function play() {
-  initAudio(); live = true; document.getElementById('play').style.display = 'none';
-  const m = AUD.music; if (m && !m._bad) { try { m.currentTime = 0; m.volume = 1; m.play().catch(() => {}); } catch (e) {} }
-  tl.play(0);
-}
+function play() { initAudio(); live = true; document.getElementById('play').style.display = 'none';
+  const m = AUD.music; if (m && !m._bad) { try { m.currentTime = 0; m.volume = 1; m.play().catch(() => {}); } catch (e) {} } tl.play(0); }
 function onEnd() { if (RENDER) return; live = false; const b = document.getElementById('play'); b.textContent = '↺ Replay'; b.style.display = ''; try { AUD.vo && AUD.vo.pause(); } catch (e) {} }
 gsap.ticker.add(() => {
   if (!built || RENDER) return;
-  if (live) {
-    const m = AUD.music;
+  if (live) { const m = AUD.music;
     if (m && !m._bad && !m.paused && m.readyState > 2 && m.currentTime < TL.duration - .6) { const d = m.currentTime - tl.time(); if (Math.abs(d) > .04) tl.time(m.currentTime, true); }
-    if (m && !m._bad) m.volume = cl(duckP.v * TL.music.gain);
-  }
+    if (m && !m._bad) m.volume = cl(duckP.v * TL.music.gain); }
   frame(tl.time());
 });
 
@@ -378,13 +290,12 @@ const mq = matchMedia('(orientation: portrait)');
 function layoutName() { return RENDER ? (innerHeight > innerWidth ? 'port' : 'land') : (mq.matches ? 'port' : 'land'); }
 function fit() { if (!L) return; const s = Math.min(innerWidth / L.W, innerHeight / L.H); stage.style.transform = `scale(${s})`; }
 function seekTo(t) { tl.seek(t, true); frame(t); }
-addEventListener('resize', () => { fit(); });
-mq.addEventListener('change', () => { const t = tl ? tl.time() : 0, wasPlaying = tl && tl.isActive(); build(layoutName(), t).then(() => { if (wasPlaying) tl.play(); }); });
+addEventListener('resize', fit);
+mq.addEventListener('change', () => { const t = tl ? tl.time() : 0, was = tl && tl.isActive(); build(layoutName(), t).then(() => { if (was) tl.play(); }); });
 document.getElementById('play').addEventListener('click', play);
 window.SAFE = () => L.safe;
-window.ready = Promise.all([document.fonts.load('400 100px Seasons'), document.fonts.load('600 40px Mont'), document.fonts.load('500 40px Mont')])
-  .then(() => build(layoutName(), 0)).then(() => true);
-window.seek = t => { seekTo(t); };
+window.ready = Promise.all([document.fonts.load('600 100px Mont'), document.fonts.load('500 40px Mont')]).then(() => build(layoutName(), 0)).then(() => true);
+window.seek = t => seekTo(t);
 </script>
 </body>
 </html>

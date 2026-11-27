@@ -1,7 +1,12 @@
 # DECRU — 30 s launch film
 
-`index.html` is the whole film: one self-contained file with fonts, the real DECRU wordmark and the app screens
-inlined, and GSAP 3.12.5 from cdnjs. Keep the audio files in the same folder:
+`index.html` is the whole film: one self-contained file (fonts, app screens and brand photos inlined; GSAP 3.12.5 from cdnjs).
+Look: white and minimal, in the decru.co brand system. The wordmark is "DECRU" in Montserrat SemiBold, -0.055em, ink #1A1614 on #FFFFFF,
+with the site's 22–24 px halftone dot texture and its outlined "Download the app" pill.
+Message: ad-driven feeds are noise ("Too many ads. Too little taste."), DECRU is taste ("Ranked by your taste. Never by ad spend."),
+landing on "Fashion, found. Not fed."
+
+Keep the audio files in the same folder:
 
 | File | What | Plays at |
 |---|---|---|
