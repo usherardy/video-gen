@@ -1,0 +1,47 @@
+{
+  "duration": 30, "fps": 60,
+  "shots": { "intro": 0, "push": 3, "orb": 7, "meet": 12, "product": 12, "lock": 20, "hold": 26, "finalBeat": 29.5, "black": 29.95 },
+  "callouts": [13.0, 15.5, 18.0],
+  "music": { "file": "music.mp3", "source": "audio/raw/music2.mp3", "trim": 1.0, "gain": 1.0 },
+  "vo": {
+    "file": "vo.mp3", "source": "audio/raw/voA.mp3", "start": 3.0, "gain": 0.8, "duck": 0.6,
+    "phrases": [
+      { "src": [0.00, 1.31],  "t": 3.25,  "text": "Too many ads." },
+      { "src": [1.66, 2.83],  "t": 5.15,  "text": "Too little taste." },
+      { "src": [3.32, 4.14],  "t": 12.15, "text": "Meet Decru." },
+      { "src": [4.56, 6.04],  "t": 13.25, "text": "Brands from every city." },
+      { "src": [6.42, 6.84],  "t": 15.6,  "text": "Seen it?" },
+      { "src": [7.13, 7.73],  "t": 16.15, "text": "Search it." },
+      { "src": [8.01, 9.19],  "t": 18.1,  "text": "Your private mall." },
+      { "src": [9.53, 11.85], "t": 20.3,  "text": "Fashion intelligence, built around you." },
+      { "src": [12.20, 12.70],"t": 24.1,  "text": "Decru." },
+      { "src": [12.99, 14.28],"t": 26.05, "text": "Fashion, found." },
+      { "src": [14.51, 15.15],"t": 27.42, "text": "Not fed." },
+      { "src": [15.49, null], "t": 28.16, "text": "Now at decru dot co.", "tempo": 1.1 }
+    ]
+  },
+  "sfx": {
+    "sfx_boom.mp3":    { "source": "audio/raw/boom2.mp3",    "peak": 0.06 },
+    "sfx_whoosh.mp3":  { "source": "audio/raw/whoosh3.mp3",  "peak": 0.21 },
+    "sfx_shimmer.mp3": { "source": "audio/raw/shimmer3.mp3", "peak": 0.45 },
+    "sfx_tick.mp3":    { "source": "audio/raw/tick2.mp3",    "peak": 0.0 }
+  },
+  "cues": [
+    { "f": "sfx_whoosh.mp3", "at": 4.0, "gain": 0.8 },
+    { "f": "sfx_tick.mp3", "at": 3.0, "gain": 0.7 },
+    { "f": "sfx_tick.mp3", "at": 5.0, "gain": 0.7 },
+    { "f": "sfx_boom.mp3", "at": 12.0, "gain": 1.0 },
+    { "f": "sfx_whoosh.mp3", "at": 13.0, "gain": 0.7 },
+    { "f": "sfx_whoosh.mp3", "at": 15.5, "gain": 0.7 },
+    { "f": "sfx_whoosh.mp3", "at": 18.0, "gain": 0.7 },
+    { "f": "sfx_tick.mp3", "at": 13.3, "gain": 0.55 },
+    { "f": "sfx_tick.mp3", "at": 15.8, "gain": 0.55 },
+    { "f": "sfx_tick.mp3", "at": 18.3, "gain": 0.55 },
+    { "f": "sfx_shimmer.mp3", "at": 24.0, "gain": 0.8 },
+    { "f": "sfx_tick.mp3", "at": 26.05, "gain": 0.55 },
+    { "f": "sfx_tick.mp3", "at": 28.15, "gain": 0.55 },
+    { "f": "sfx_boom.mp3", "at": 29.5, "gain": 0.45 },
+    { "f": "sfx_tick.mp3", "at": 29.5, "gain": 0.8 }
+  ],
+  "typeOn": { "text": "Something new is coming.", "start": 0.95, "step": 0.065, "tickGain": 0.22 }
+}
