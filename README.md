@@ -12,6 +12,7 @@ project are in [`CLAUDE.md`](CLAUDE.md).
 | 02 | [**PromptItIn v1**](projects/02-promptitin/v1): "Vague prompts get vague answers" | 20 s | 9:16 · 1:1 · 16:9 | [9:16](projects/02-promptitin/v1/videos/promptitin-v1-9x16.mp4) · [1:1](projects/02-promptitin/v1/videos/promptitin-v1-1x1.mp4) · [16:9](projects/02-promptitin/v1/videos/promptitin-v1-16x9.mp4) |
 | 02 | [**PromptItIn v2**](projects/02-promptitin/v2): "Your prompt is 40% there" | 20 s | 9:16 · 1:1 · 16:9 | [9:16](projects/02-promptitin/v2/videos/promptitin-v2-9x16.mp4) · [1:1](projects/02-promptitin/v2/videos/promptitin-v2-1x1.mp4) · [16:9](projects/02-promptitin/v2/videos/promptitin-v2-16x9.mp4) |
 | 03 | [**DECRU launch film**](projects/03-decru): white, minimal, "Fashion, found. Not fed." | 30 s | 16:9 · 9:16 | [16:9](projects/03-decru/videos/decru-16x9.mp4) · [9:16](projects/03-decru/videos/decru-9x16.mp4) |
+| 04 | [**PromptItIn reel**](projects/04-promptitin-reel): captioned selfie intro cut into the v1 film, for Instagram | 40 s | 9:16 | [9:16](projects/04-promptitin-reel/videos/promptitin-reel-9x16.mp4) |
 
 The `videos/` copies are light H.264 encodes, with voiceover, for watching and sharing. Full-quality CRF 16 masters
 are regenerated into each project's `out/`, which is git-ignored.
@@ -30,7 +31,8 @@ video-gen/
     │   ├── assets/      real screenshots, logo and fonts from promptitin.com (shared by v1 and v2)
     │   ├── v1/
     │   └── v2/
-    └── 03-decru/
+    ├── 03-decru/
+    └── 04-promptitin-reel/
 ```
 
 Each film folder follows the same shape:

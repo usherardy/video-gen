@@ -1,0 +1,62 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:GeistP;font-weight:100 900;src:url(../02-promptitin/assets/fonts/Geist.woff2)}
+@font-face{font-family:GelasioP;font-style:italic;font-weight:700;src:url(../../node_modules/@fontsource/gelasio/files/gelasio-latin-700-italic.woff2)}
+:root{--ink:#111827;--accent:#7c3aed;--paper:#ffffff}
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden}
+/* caption block sits on the wall above the head, clear of the Reels header (top ~200 px) */
+#cap{position:absolute;left:80px;right:80px;bottom:1440px;display:flex;flex-wrap:wrap;justify-content:center;
+  align-items:baseline;column-gap:36px;row-gap:10px;transform-origin:50% 100%;z-index:1}
+.w{position:relative;z-index:1;font:800 84px/1.12 GeistP,sans-serif;letter-spacing:-0.025em;color:var(--ink);white-space:nowrap}
+.w.acc{font:italic 700 90px/1.12 GelasioP,serif;letter-spacing:-0.01em;color:var(--accent)}
+.w.on{color:var(--paper)}
+#pill{position:absolute;z-index:0;background:var(--accent);border-radius:20px}
+</style></head>
+<body><div id="pill"></div><div id="cap"></div>
+<script src="data.js"></script>
+<script>
+const D = window.DATA, cap = document.getElementById('cap'), pill = document.getElementById('pill');
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const easeOut = x => 1 - Math.pow(1 - x, 3);
+const easeBack = x => { const c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+let built = -1;
+function build(ci) {               // DOM is a function of the chunk index only
+  cap.innerHTML = '';
+  for (const w of D.chunks[ci].words) {
+    const s = document.createElement('span');
+    s.className = 'w' + (w.accent ? ' acc' : ''); s.textContent = w.text; cap.appendChild(s);
+  }
+  built = ci;
+}
+function rectOf(el) {               // word box in page coords, before the chunk's pop transform
+  return { x: el.offsetLeft + cap.offsetLeft, y: el.offsetTop + cap.offsetTop, w: el.offsetWidth, h: el.offsetHeight };
+}
+window.seek = t => {
+  let ci = 0; while (ci + 1 < D.chunks.length && D.chunks[ci + 1].t <= t) ci++;
+  if (built !== ci) build(ci);
+  const ch = D.chunks[ci], spans = [...cap.children];
+  let wi = 0; while (wi + 1 < ch.words.length && ch.words[wi + 1].t <= t) wi++;
+  spans.forEach((s, i) => s.classList.toggle('on', i === wi));
+  // chunk pop: 0.92 -> 1 with a little overshoot, 110 ms
+  const pk = clamp((t - ch.t) / 0.11), sc = 0.92 + 0.08 * easeBack(pk);
+  cap.style.transform = `scale(${sc})`;
+  // pill slides from the previous word to the active one in 90 ms (grows in on a chunk's first word)
+  const padX = 15, padY = 3, cur = rectOf(spans[wi]);
+  const k = easeOut(clamp((t - ch.words[wi].t) / 0.09));
+  let r;
+  if (wi === 0) {
+    const s0 = 0.6 + 0.4 * k; r = { x: cur.x + cur.w * (1 - s0) / 2, y: cur.y + cur.h * (1 - s0) / 2, w: cur.w * s0, h: cur.h * s0 };
+  } else {
+    const p = rectOf(spans[wi - 1]);
+    r = { x: p.x + (cur.x - p.x) * k, y: p.y + (cur.y - p.y) * k, w: p.w + (cur.w - p.w) * k, h: p.h + (cur.h - p.h) * k };
+  }
+  // map through the chunk's scale (origin: bottom centre of #cap)
+  const ox = cap.offsetLeft + cap.offsetWidth / 2, oy = cap.offsetTop + cap.offsetHeight;
+  const X = v => ox + (v - ox) * sc, Y = v => oy + (v - oy) * sc;
+  pill.style.left = X(r.x - padX) + 'px'; pill.style.top = Y(r.y - padY) + 'px';
+  pill.style.width = (r.w + 2 * padX) * sc + 'px'; pill.style.height = (r.h + 2 * padY) * sc + 'px';
+  pill.style.borderRadius = 20 * sc + 'px';
+};
+window.ready = document.fonts.ready.then(() => document.fonts.load('800 84px GeistP')).then(() => document.fonts.load('italic 700 90px GelasioP'));
+</script></body></html>

@@ -1,0 +1,31 @@
+{
+  "fps": 30,
+  "size": [1080, 1920],
+  "source": "src/IMG_9459.MOV",
+  "outro": "../02-promptitin/v1/out/promptitin-v1-9x16.mp4",
+  "zoom_anchor_y": 0.27,
+  "shots": [
+    { "in": 0.00,  "out": 2.94,  "zoom": 1.00, "note": "So I've been trying to make videos all day," },
+    { "in": 2.94,  "out": 7.02,  "zoom": 1.12, "note": "motion graphics videos using Claude Opus 5.5 and  (punch-in, no time cut)" },
+    { "in": 7.74,  "out": 9.92,  "zoom": 1.00, "note": "then I use ElevenLabs to" },
+    { "in": 10.76, "out": 15.24, "zoom": 1.12, "note": "add the audio to it, voiceover to it, and the" },
+    { "in": 15.40, "out": 17.72, "zoom": 1.22, "note": "videos are crazy and" },
+    { "in": 18.56, "out": 22.74, "zoom": 1.00, "note": "they look good and this is how the video looks like" }
+  ],
+  "captions": [
+    [["So", 0], ["I've", 1], ["been", 2], ["trying", 3]],
+    [["to", 4], ["make", 5], ["videos", 6]],
+    [["all", 7], ["day,", 8]],
+    [["motion", 9], ["graphics", 10], ["videos", 11], ["using", 12]],
+    [["*Claude Opus 5.5*", 13]],
+    [["and", 17], ["then", 18], ["I", 19], ["use", 20]],
+    [["*ElevenLabs*", 21], ["to", 22]],
+    [["add", 23], ["the", 24], ["audio", 25], ["to", 26], ["it,", 27]],
+    [["*voiceover*", 28], ["to", 29], ["it,", 30]],
+    [["and", 31], ["the", 33], ["videos", 34]],
+    [["are", 35], ["*crazy*", 36]],
+    [["and", 37], ["they", 38], ["look", 39], ["good", 40]],
+    [["and", 41], ["this", 42], ["is", 43], ["how", 44]],
+    [["the", 45], ["video", 46], ["looks", 47], ["like", 48]]
+  ]
+}
