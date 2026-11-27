@@ -3,3 +3,4 @@ out/
 *.mp4
 data.js
 audio/*.wav
+pdata.js
