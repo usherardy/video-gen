@@ -1,0 +1,18 @@
+{
+  "fps": 30, "duration": 15, "bpm": 120, "nbeats": 30,
+  "hook": [0, 1, 2, 3],
+  "words": ["SNOOZE.", "5 MORE MIN.", "TOMORROW.", "MONDAY."],
+  "silence": 4, "strike": [4.5, 5.5],
+  "flood": 6, "tap": 7.5, "morph": [8, 9],
+  "alarm": [8, 12], "startTap": 11.25,
+  "squat": [12, 17], "reps": [13, 14.5, 16],
+  "focus": [17, 23], "checks": [18, 19.5, 20.5, 21.5],
+  "tiles": [23, 23.5, 24, 24.5, 25],
+  "cta": 26, "ripple": 28,
+  "captions": [
+    { "b": 9, "big": "IT RINGS", "small": "until your mission is done." },
+    { "b": 12, "big": "3 SQUATS.", "small": "counted on your phone." },
+    { "b": 17, "big": "THEN BEGIN", "small": "what you woke up for." },
+    { "b": 23, "big": "PROVE IT", "small": "your way." }
+  ]
+}

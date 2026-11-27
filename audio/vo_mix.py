@@ -2,7 +2,7 @@
 
 usage: python3 audio/vo_mix.py audio/vo/<film>.json
 
-config: take (mp3), music (raw score wav), beats (json with offset/spb), out (name, no extension),
+config: take (mp3), music (raw score wav), beats (json with offset/spb), out (name, no extension), optional hits (wav added unducked),
         phrases: [[source_start_s, source_end_s or null for end of take, beat, text], ...]
 Writes audio/<out>_raw.wav and the mastered audio/<out>.wav."""
 import json, subprocess, sys, re
@@ -41,6 +41,8 @@ track = np.zeros(N)
 for i, seg in segs:                                      # each phrase sits +8 dB over what plays under it
     e = min(N, i + len(seg)); m = np.sqrt(np.mean(ducked[i:e] ** 2)); track[i:e] += seg[:e - i] * m * 10 ** (8 / 20)
 mix = ducked + np.stack([track, track], 1)
+if cfg.get('hits'):                                      # optional stem that must punch through the duck (hook slams)
+    h, sr3 = sf.read(cfg['hits']); assert sr3 == SR; mix[:len(h)] += h[:N]
 mix /= max(1e-9, np.abs(mix).max()) / 0.95
 raw = f"audio/{cfg['out']}_raw.wav"; sf.write(raw, mix, SR)
 for (s0, s1, b, txt), (i, seg) in zip(PHRASES, segs):

@@ -1,0 +1,52 @@
+{
+  "take": "audio/vo/begin_takeA.mp3",
+  "music": "audio/begin_score.wav",
+  "hits": "audio/begin_hits.wav",
+  "beats": "begin/beats.json",
+  "out": "begin",
+  "voice": "Erik - Confident Commercial Narration (zQHE5F85wua2ysECgQ4l), eleven_v4, one take",
+  "phrases": [
+    [
+      0.0,
+      1.84,
+      0.25,
+      "Five more minutes..."
+    ],
+    [
+      2.71,
+      3.07,
+      5.1,
+      "Or..."
+    ],
+    [
+      3.32,
+      4.16,
+      6.1,
+      "just begin."
+    ],
+    [
+      4.72,
+      6.33,
+      12.1,
+      "Three squats to switch it off."
+    ],
+    [
+      6.74,
+      8.37,
+      17.1,
+      "Then the first thing you got up for."
+    ],
+    [
+      9.38,
+      9.94,
+      26.0,
+      "Begin."
+    ],
+    [
+      10.49,
+      null,
+      27.3,
+      "Wake to action."
+    ]
+  ]
+}
