@@ -1,3 +1,5 @@
 node_modules/
 out/
 *.mp4
+data.js
+audio/*.wav
