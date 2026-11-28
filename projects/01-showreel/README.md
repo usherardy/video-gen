@@ -1,5 +1,7 @@
 # 01 — Showreel
 
+**Prompts, tools & skills:** [`PROMPTS.md`](PROMPTS.md)
+
 A 15 s motion-design "résumé" reel. Each shot is a different technique: kinetic type with masked reveals, a
 dot grid seen through a text mask, a hand-projected 3D torus, three kinds of type physics, a live bezier
 curve editor, and a closing ring that counts the film's own 15 seconds. 120 bpm; the cuts follow the measured beat grid.

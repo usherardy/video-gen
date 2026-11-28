@@ -1,5 +1,7 @@
 # 02 — PromptItIn promo
 
+**Prompts, tools & skills:** [`PROMPTS.md`](PROMPTS.md)
+
 20 s launch promos for [promptitin.com](https://promptitin.com), in 9:16, 1:1 and 16:9 from one timeline.
 Every UI frame is cropped from the site's real screenshots in [`assets/`](assets) (see `assets/ASSETS.md`);
 no UI is redrawn.

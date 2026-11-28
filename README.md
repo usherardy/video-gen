@@ -6,15 +6,17 @@ project are in [`CLAUDE.md`](CLAUDE.md).
 
 ## Projects
 
-| # | Project | Length | Formats | Watch |
-|---|---|---|---|---|
-| 01 | [**Showreel**](projects/01-showreel): "I make pixels move", a motion-design résumé reel | 15 s | 16:9 | [showreel.mp4](projects/01-showreel/videos/showreel.mp4) |
-| 02 | [**PromptItIn v1**](projects/02-promptitin/v1): "Vague prompts get vague answers" | 20 s | 9:16 · 1:1 · 16:9 | [9:16](projects/02-promptitin/v1/videos/promptitin-v1-9x16.mp4) · [1:1](projects/02-promptitin/v1/videos/promptitin-v1-1x1.mp4) · [16:9](projects/02-promptitin/v1/videos/promptitin-v1-16x9.mp4) |
-| 02 | [**PromptItIn v2**](projects/02-promptitin/v2): "Your prompt is 40% there" | 20 s | 9:16 · 1:1 · 16:9 | [9:16](projects/02-promptitin/v2/videos/promptitin-v2-9x16.mp4) · [1:1](projects/02-promptitin/v2/videos/promptitin-v2-1x1.mp4) · [16:9](projects/02-promptitin/v2/videos/promptitin-v2-16x9.mp4) |
-| 03 | [**DECRU launch film**](projects/03-decru): white, minimal, "Fashion, found. Not fed." | 30 s | 16:9 · 9:16 | [16:9](projects/03-decru/videos/decru-16x9.mp4) · [9:16](projects/03-decru/videos/decru-9x16.mp4) |
+| # | Project | Length | Formats | Watch | Prompts |
+|---|---|---|---|---|---|
+| 01 | [**Showreel**](projects/01-showreel): "I make pixels move", a motion-design résumé reel | 15 s | 16:9 | [showreel.mp4](projects/01-showreel/videos/showreel.mp4) | [prompts](projects/01-showreel/PROMPTS.md) |
+| 02 | [**PromptItIn v1**](projects/02-promptitin/v1): "Vague prompts get vague answers" | 20 s | 9:16 · 1:1 · 16:9 | [9:16](projects/02-promptitin/v1/videos/promptitin-v1-9x16.mp4) · [1:1](projects/02-promptitin/v1/videos/promptitin-v1-1x1.mp4) · [16:9](projects/02-promptitin/v1/videos/promptitin-v1-16x9.mp4) | [prompts](projects/02-promptitin/PROMPTS.md#v1-the-brief) |
+| 02 | [**PromptItIn v2**](projects/02-promptitin/v2): "Your prompt is 40% there" | 20 s | 9:16 · 1:1 · 16:9 | [9:16](projects/02-promptitin/v2/videos/promptitin-v2-9x16.mp4) · [1:1](projects/02-promptitin/v2/videos/promptitin-v2-1x1.mp4) · [16:9](projects/02-promptitin/v2/videos/promptitin-v2-16x9.mp4) | [prompts](projects/02-promptitin/PROMPTS.md#v2-rebuilt-from-scratch) |
+| 03 | [**DECRU launch film**](projects/03-decru): white, minimal, "Fashion, found. Not fed." | 30 s | 16:9 · 9:16 | [16:9](projects/03-decru/videos/decru-16x9.mp4) · [9:16](projects/03-decru/videos/decru-9x16.mp4) | [prompts](projects/03-decru/PROMPTS.md) |
 
 The `videos/` copies are light H.264 encodes, with voiceover, for watching and sharing. Full-quality CRF 16 masters
 are regenerated into each project's `out/`, which is git-ignored.
+
+Studio setup prompts, the unproduced prompt patterns, and every tool and skill used: [`PROMPTS.md`](PROMPTS.md).
 
 ## Layout
 
@@ -44,6 +46,7 @@ Each film folder follows the same shape:
 | `render.mjs` | contact sheet, spot frames, or the full MP4 into `out/` |
 | `videos/` | the finished, watchable MP4s |
 | `README.md` | what the film is and how to rebuild it |
+| `PROMPTS.md` | every prompt behind the film, plus the tools and skills used |
 
 ## Setup
 
