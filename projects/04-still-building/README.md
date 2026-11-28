@@ -1,6 +1,7 @@
 # 04 Still Building: "The boy who couldn't stop building"
 
-**Watch:** [`videos/still-building-animated-9x16.mp4`](videos/still-building-animated-9x16.mp4) (Pixar-style animated cut, 67.7 s, 9:16)
+**Watch:** [`videos/still-building-v2-9x16.mp4`](videos/still-building-v2-9x16.mp4) (v2: new script, free open-source voice, 76.2 s; see [`v2/`](v2/README.md))
+· [`videos/still-building-animated-9x16.mp4`](videos/still-building-animated-9x16.mp4) (Pixar-style animated cut, 67.7 s, 9:16)
 · [`videos/still-building-9x16.mp4`](videos/still-building-9x16.mp4) (first version: illustrated motion graphics)
 **Prompts, tools & skills:** [`PROMPTS.md`](PROMPTS.md)
 Run every command below from this folder.

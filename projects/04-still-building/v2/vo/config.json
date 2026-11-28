@@ -1,0 +1,123 @@
+{
+ "take": "vo/take.flac",
+ "music": "audio/score_raw.wav",
+ "beats": "beats.json",
+ "out": "still_v2_vo",
+ "voice": "Kokoro am_michael, speed 1.0",
+ "phrases": [
+  [
+   0.0,
+   4.069,
+   0.0,
+   "When I was in eighth grade, I decided I wanted to build a company."
+  ],
+  [
+   4.419,
+   10.155,
+   6.75,
+   "I didn't know how, or what it would become. I just knew I wanted to create something real."
+  ],
+  [
+   10.505,
+   12.525,
+   16.5,
+   "Then life took me to Lithuania."
+  ],
+  [
+   12.875,
+   16.251,
+   20.0,
+   "A new country, a new chapter, and a different kind of struggle."
+  ],
+  [
+   16.601,
+   18.372,
+   25.75,
+   "But living abroad was hard."
+  ],
+  [
+   18.723,
+   23.682,
+   29.0,
+   "The pressure of money, survival and not knowing what comes next never stopped."
+  ],
+  [
+   24.032,
+   27.857,
+   37.0,
+   "Some nights it felt less like a dream and more like a nightmare."
+  ],
+  [
+   28.207,
+   31.418,
+   44.0,
+   "But somewhere inside that pressure, I realized something."
+  ],
+  [
+   31.768,
+   35.934,
+   49.25,
+   "Building was never just something I liked doing. It felt like freedom."
+  ],
+  [
+   36.284,
+   42.301,
+   56.0,
+   "Every app, every project, every late night at my desk was a small attempt to build my way out."
+  ],
+  [
+   42.651,
+   46.374,
+   65.5,
+   "Out of limits. Out of fear. Out of a life run by survival."
+  ],
+  [
+   46.724,
+   48.005,
+   72.0,
+   "So I kept building."
+  ],
+  [
+   48.355,
+   53.075,
+   74.25,
+   "Games first, then websites, robots, ideas. Some worked. Most didn't."
+  ],
+  [
+   53.425,
+   54.637,
+   82.0,
+   "But I couldn't stop."
+  ],
+  [
+   54.987,
+   57.849,
+   85.0,
+   "Maybe building is more than ambition for me."
+  ],
+  [
+   58.199,
+   62.093,
+   89.75,
+   "Maybe it's the only thing that ever made the future feel possible."
+  ],
+  [
+   62.443,
+   65.274,
+   96.75,
+   "I still don't know which idea will change everything."
+  ],
+  [
+   65.624,
+   69.129,
+   101.5,
+   "But I know this. I owe it to the boy I was to keep going."
+  ],
+  [
+   69.479,
+   72.323,
+   107.5,
+   "Follow along. The story is still being written."
+  ]
+ ]
+}

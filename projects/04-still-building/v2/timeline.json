@@ -1,0 +1,39 @@
+{
+ "fps": 30,
+ "bpm": 90,
+ "duration": 76.2,
+ "scenes": {
+  "dream": 0,
+  "abroad": 16.5,
+  "struggle": 25.75,
+  "turn": 44.0,
+  "escape": 49.25,
+  "obsession": 72.0,
+  "meaning": 85.0,
+  "ending": 96.75,
+  "title": 107.5,
+  "end": 114.30000000000001
+ },
+ "cues": {
+  "lithuania": 18.2925,
+  "nightmare": 41.962,
+  "freedom": 54.638,
+  "out": [
+   65.5435,
+   66.7435,
+   68.3035
+  ],
+  "list": [
+   74.7075,
+   75.7875,
+   76.9275,
+   77.5875
+  ],
+  "worked": 78.9375,
+  "didnt": 80.4075,
+  "cant_stop": 82.0525,
+  "possible": 94.5515,
+  "keep_going": 105.694,
+  "follow": 107.5915
+ }
+}
