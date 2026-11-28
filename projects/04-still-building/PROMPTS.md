@@ -6,9 +6,29 @@ then corrected with their facts: Pexel (an anonymous feedback chat, built in ten
 Shaw Games (shawgames.com, 15K monthly active users). Final text: [`script.txt`](script.txt), scored 100/100 by the
 skill's `score.py`.
 
+The user's prompts, in order:
+1. A five-chapter draft (Chapter I "The Dream" … Chapter V "Somewhere in the Future", ending "THE BOY WHO COULDN'T STOP
+   BUILDING / The story is still being written.") with the instruction *"lets try to write a personal one"*.
+2. *"we build a pexela website that no one used or we failed at distributoin miserabely, in 10 grade and the site that has
+   thousands of users is shawgames.com"*
+3. *"pexel is the name of the site it was website for anonymus chat to give feedaback., 15k shawgames mau mention me not we"*
+4. *"yes use eleven labs"*
+5. *"well i NEED THE VIDEO as well, correct?"*
+
+## Film
+Built with the studio rules in the root `CLAUDE.md`: a pure `seek(t)` Canvas film, a synthesized score on a measured
+90 BPM grid, the voiceover placed phrase by phrase with `shared/vo_mix.py`, and three contact-sheet review rounds
+(hook, readability at phone size, motion, variety, brand accuracy, sound sync) before the full render. Fixes made in
+review: numbers moved to the mono face (Gelasio's old-style figures sank below the line), a dark road under the Lithuania
+captions, a push-in that zooms about the window, the Shaw Games phone cut before the comparison, and people icons
+instead of dots.
+
+Tools: ElevenLabs connector (TTS `eleven_v4`, Scribe `eleven_scribe_v1` for word timings), Playwright (renders and the
+shawgames.com screenshot), ffmpeg, numpy/scipy/soundfile/librosa. Skills: `viral-video-writing` for the script.
+
 ## Voiceover
 ElevenLabs TTS, model `eleven_v4`, voice **Justin – Trusting Calm** (`NyBVtlh1XAem9yCxNuWk`), 2 takes of the whole
-script (`vo/takeA.mp3` 72.3 s, `vo/takeB.mp3` 68.8 s). Prompt:
+script (`vo/takeA.mp3` 72.3 s, `vo/takeB.mp3` 68.8 s; take B is used). Prompt:
 
 ```text
 [quiet, sincere, late-night reflective read, like talking to a friend at 2 AM] I'm twenty-four, it's two A.M., and I'm awake thinking about something that doesn't exist yet.
