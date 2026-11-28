@@ -1,11 +1,11 @@
 # 01 Showreel: prompts, tools & skills
 
-User prompts are quoted verbatim (typos included). An arrow notes what each one led to.
+The main prompt is quoted verbatim. An arrow notes what it led to.
 
 ## The brief
 
 ```text
-ok lets do it: make a dynamic 15-second motion graphics video that shows what an 
+make a dynamic 15-second motion graphics video that shows what an 
 incredible motion designer you are, like it's your showreel for a résumé. 
 go all out.
 ```
@@ -13,24 +13,11 @@ go all out.
 3D torus, three kinds of type physics, a live bezier curve editor, and a ring counting the film's own 15 s. The cuts sit on a
 120 bpm grid. Two contact-sheet passes fixed a text-mask bug, a layout overlap and the hook.
 
-## Follow-ups
-
-```text
-what is the idea for this
-```
-→ Explained the concept: a résumé reel where every shot proves one skill, and "every frame is a function of time" is literally true.
-
-```text
-lets add audio toit then ?
-lets add audio to ut]
-```
-→ Asked what audio; the answer was **"Voiceover on v1 / showreel"**. Added an ElevenLabs voiceover, placed on the beat grid.
-
 ## Generation prompts
 
 **Score:** synthesized in code, no prompt: `audio/synth.py` (piano-like tones, drums, designed hits; 120 bpm; -14 LUFS).
 
-**Voiceover:** ElevenLabs TTS, model `eleven_v4`, voice **Victor – Documentary Voice** (`Nqq3Kr2AiGtk9G8OYzDp`), 2 takes, take A used:
+**Voiceover** (added after the film was finished): ElevenLabs TTS, model `eleven_v4`, voice **Victor – Documentary Voice** (`Nqq3Kr2AiGtk9G8OYzDp`), 2 takes, take A used:
 ```text
 [calm, assured, a little wry] I make pixels move.
 

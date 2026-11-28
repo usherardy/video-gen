@@ -1,6 +1,6 @@
 # 03 DECRU: prompts, tools & skills
 
-User prompts are quoted verbatim (typos included). An arrow notes what each one led to.
+The main prompt and the revision prompt are quoted verbatim. An arrow notes what each led to.
 
 ## The brief
 
@@ -40,7 +40,7 @@ AUDIO (made with ElevenLabs, to be dropped in as music.mp3, sfx_*.mp3 and vo.mp3
 
 AUDIO WIRING: Add a "▶ Play" start overlay (browsers block autoplay with sound). On click, start the GSAP master timeline and music.mp3 together. Fire the SFX at the timestamps above from the same timeline, start vo.mp3 at 0:03 at about 80% volume, and duck the music to 60% while the VO plays. If audio files are missing, the animation must still play silently with no errors.
 
-DELIVERABLE: One index.html (inline CSS/JS, GSAP from cdnjs), plus a short note on how to screen-record or export it to MP4 at 1080p/60fps. based on old setup, lets try this prompt
+DELIVERABLE: One index.html (inline CSS/JS, GSAP from cdnjs), plus a short note on how to screen-record or export it to MP4 at 1080p/60fps.
 ```
 → Checking decru.co showed the brief's premise was wrong: DECRU is an **AI-powered independent-fashion discovery app**
 ("Fashion, found. Not fed."), not an AI crew. Instagram was login-walled.
@@ -53,7 +53,7 @@ Asked which film to build, and where the brand assets should come from. The answ
 
 → First cut: a dark film using the site's burgundy and The Seasons serif, with the real app screens frosted so no faces show.
 
-## Revision
+## Revision prompt
 
 ```text
 can we make the video a bit clean and it should give a message, and make the background white and minimal.  And the logo is incorrect. This is how the logo is.

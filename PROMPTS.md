@@ -8,7 +8,7 @@ Every film's own prompts live next to it:
 | 02 PromptItIn v1 + v2 | [projects/02-promptitin/PROMPTS.md](projects/02-promptitin/PROMPTS.md) |
 | 03 DECRU | [projects/03-decru/PROMPTS.md](projects/03-decru/PROMPTS.md) |
 
-This file holds the prompts that set up the studio itself. User prompts are quoted verbatim (typos included).
+This file holds the main prompts that set up the studio itself, quoted verbatim.
 
 ## 1. Install a skill
 
@@ -72,28 +72,7 @@ claude --model claude-opus-5-5
 → Steps 1–2 were done in the cloud container (the pre-installed Playwright Chromium was reused). Steps 3–4 were optional and
 not installed. Step 5 applies to a local machine.
 
-## 4. The repo
-
-```text
-lets do the github thingy
-```
-```text
-usherardy and creeate a repo video-make
-```
-```text
-https://github.com/usherardy/video-gen
-```
-```text
-put all the videos in differnet folders and seperate the projects by folders so it is easily readable and structure the repo
-```
-```text
-mention all the prompts we gave fro each video,
-```
-```text
-and tools or  skills we used
-```
-
-## 5. Prompt patterns shared, not produced yet
+## 4. Prompt patterns shared, not produced yet
 
 ```text
 # Longer, with a sound bar (pattern from @kloss_xyz's 90-second piano reel)

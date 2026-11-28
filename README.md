@@ -9,7 +9,7 @@ measured beat grid. The house rules for every project are in [`CLAUDE.md`](CLAUD
 | # | Project | Length | Formats | Watch | Prompts |
 |---|---|---|---|---|---|
 | 01 | [**Showreel**](projects/01-showreel): "I make pixels move", a motion-design résumé reel | 15 s | 16:9 | [showreel.mp4](projects/01-showreel/videos/showreel.mp4) | [prompts](projects/01-showreel/PROMPTS.md) |
-| 02 | [**PromptItIn v1**](projects/02-promptitin/v1): "Vague prompts get vague answers" | 20 s | 9:16 · 1:1 · 16:9 | [9:16](projects/02-promptitin/v1/videos/promptitin-v1-9x16.mp4) · [1:1](projects/02-promptitin/v1/videos/promptitin-v1-1x1.mp4) · [16:9](projects/02-promptitin/v1/videos/promptitin-v1-16x9.mp4) | [prompts](projects/02-promptitin/PROMPTS.md#v1-the-brief) |
+| 02 | [**PromptItIn v1**](projects/02-promptitin/v1): "Vague prompts get vague answers" | 20 s | 9:16 · 1:1 · 16:9 | [9:16](projects/02-promptitin/v1/videos/promptitin-v1-9x16.mp4) · [1:1](projects/02-promptitin/v1/videos/promptitin-v1-1x1.mp4) · [16:9](projects/02-promptitin/v1/videos/promptitin-v1-16x9.mp4) | [prompts](projects/02-promptitin/PROMPTS.md#the-brief-v1-and-v2) |
 | 02 | [**PromptItIn v2**](projects/02-promptitin/v2): "Your prompt is 40% there" | 20 s | 9:16 · 1:1 · 16:9 | [9:16](projects/02-promptitin/v2/videos/promptitin-v2-9x16.mp4) · [1:1](projects/02-promptitin/v2/videos/promptitin-v2-1x1.mp4) · [16:9](projects/02-promptitin/v2/videos/promptitin-v2-16x9.mp4) | [prompts](projects/02-promptitin/PROMPTS.md#v2-rebuilt-from-scratch) |
 | 03 | [**DECRU launch film**](projects/03-decru): white, minimal, "Fashion, found. Not fed." | 30 s | 16:9 · 9:16 | [16:9](projects/03-decru/videos/decru-16x9.mp4) · [9:16](projects/03-decru/videos/decru-9x16.mp4) | [prompts](projects/03-decru/PROMPTS.md) |
 
@@ -29,7 +29,7 @@ imagination"*, a 5-beat story, 120 BPM music synthesized in code, and 9:16 / 1:1
 is cropped from the site's real screenshots; the UI assembles from tiles, three features get cursor clicks, then a
 1,000-credit counter and the CTA. The voiceover is ElevenLabs ("Erik").
 
-**02 PromptItIn v2.** Prompt: *"lets rey again with opus from scratch."* Same brief, new concept: "YOUR PROMPT IS 40% THERE"
+**02 PromptItIn v2.** Prompt: the same brief as v1, rebuilt from scratch with Claude Opus 5.5. New concept: "YOUR PROMPT IS 40% THERE"
 match-cuts into the real score meter, the enhanced prompt streams in line by line, then real sidebar navigation, a
 zoom-through on Continue, and an odometer. A new score with every UI event on the beat; ElevenLabs voiceover.
 

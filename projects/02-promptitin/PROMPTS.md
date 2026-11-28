@@ -1,8 +1,8 @@
 # 02 PromptItIn: prompts, tools & skills
 
-User prompts are quoted verbatim (typos included). An arrow notes what each one led to.
+The main prompt is quoted verbatim. An arrow notes what it led to. v1 and v2 share the same brief.
 
-## v1: the brief
+## The brief (v1 and v2)
 
 ```text
 Make a dynamic 20-second motion graphics video for [promptitin] (promptitin.com), with the energy
@@ -34,37 +34,16 @@ Hook: "VAGUE PROMPTS GET VAGUE ANSWERS."
 
 ## v2: rebuilt from scratch
 
-```text
-lets rey again with  opus from scratch
-```
-→ Same brief and real assets, new concept: **"YOUR PROMPT IS 40% THERE."** The giant "40%" match-cuts into the real score
+The same brief, rebuilt from scratch with Claude Opus 5.5. Same real assets, new concept: **"YOUR PROMPT IS 40% THERE."** The giant "40%" match-cuts into the real score
 meter; the enhanced prompt streams in line by line; real sidebar navigation into Generate; a zoom-through on Continue into a
 1,000 odometer; a new D-minor score with every UI event on the beat grid.
-
-## Audio (voiceover)
-
-```text
-how can we add audio layer to this, should i connect eleven labs
-```
-```text
-the eleven labs should be connected right?
-```
-```text
-it should be connected now
-```
-→ Added an ElevenLabs voiceover to v2, placed phrase by phrase on the beats where each caption appears.
-
-```text
-lets add audio to ut]
-```
-→ The answer to "what audio?" was **"Voiceover on v1 / showreel"**, so v1 got its own voiceover the same way.
 
 ## Generation prompts
 
 **Scores:** synthesized in code, no prompt: `v1/audio/synth.py` (A minor piano, drums, UI pops and clicks) and
 `v2/audio/synth.py` (D minor staccato piano ostinato; every UI event from `timeline.json`).
 
-**Voiceover:** ElevenLabs TTS, model `eleven_v4`, voice **Erik – Confident Commercial Narration** (`zQHE5F85wua2ysECgQ4l`), 2 takes each, take A used.
+**Voiceover** (added to both versions after the films were finished): ElevenLabs TTS, model `eleven_v4`, voice **Erik – Confident Commercial Narration** (`zQHE5F85wua2ysECgQ4l`), 2 takes each, take A used.
 
 v1:
 ```text
