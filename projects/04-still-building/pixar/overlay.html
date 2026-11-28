@@ -1,0 +1,60 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Still Building overlay</title>
+<style>
+@font-face{font-family:Mont;font-weight:100 900;src:url(assets/fonts/Montserrat-VariableFont_wght.ttf)}
+html,body{margin:0;background:transparent}canvas{display:block}
+</style></head>
+<body><canvas id="c"></canvas><script src="overlay-data.js"></script><script>
+// Overlay for the animated cut: one-word karaoke captions, the 15,000 count-up over the real footage, the end title.
+// Pure function of time: window.seek(t) paints frame t on a transparent canvas.
+const W = 1080, H = 1920, D = window.OVL;
+const cv = document.getElementById('c'); cv.width = W; cv.height = H; const ctx = cv.getContext('2d');
+const G = '#2FE081', INK = '#06140C';
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x)), lerp = (a, b, x) => a + (b - a) * x;
+const outExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x), outCubic = x => 1 - Math.pow(1 - x, 3);
+const F = (s, w = 900) => `${w} ${s}px Mont`;
+window.ready = document.fonts.load(F(100)).then(() => document.fonts.load(F(100, 600))).then(() => true);
+
+function word(s, x, y, size, fill, k = 1, align = 'center') {
+  ctx.save(); ctx.translate(x, y); ctx.scale(k, k);
+  ctx.font = F(size); ctx.textAlign = align; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+  ctx.shadowColor = 'rgba(0,0,0,.55)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 6;
+  ctx.lineWidth = size * 0.16; ctx.strokeStyle = INK; ctx.strokeText(s, 0, 0);
+  ctx.shadowColor = 'transparent'; ctx.fillStyle = fill; ctx.fillText(s, 0, 0); ctx.restore();
+}
+function fit(s, size, maxW) { ctx.font = F(size); return Math.min(size, size * maxW / ctx.measureText(s).width); }
+
+function captions(t) {
+  const w = D.words.find(w => t >= w.t && t < w.end); if (!w) return;
+  const s = w.text.toUpperCase(), size = fit(s, 132, 940), p = cl((t - w.t) / 0.16);
+  word(s, W / 2, D.captionY, size, w.accent ? '#FFFFFF' : G, lerp(1.28, 1, outExpo(p)));
+}
+function counter(t) {
+  const c = D.counter; if (t < c.t0 || t >= c.t2) return;
+  const v = Math.round(c.value * outCubic(cl((t - c.t0) / (c.t1 - c.t0)))), k = lerp(1.3, 1, outExpo(cl((t - c.t0) / 0.2)));
+  const land = t > c.t1 ? lerp(1.12, 1, outExpo(cl((t - c.t1) / 0.25))) : 1;
+  const g = ctx.createLinearGradient(0, 0, 0, 760); g.addColorStop(0, 'rgba(4,8,16,.86)'); g.addColorStop(0.75, 'rgba(4,8,16,.6)'); g.addColorStop(1, 'rgba(4,8,16,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, 760);
+  ctx.save(); ctx.fillStyle = 'rgba(255,255,255,.12)'; ctx.beginPath(); ctx.roundRect(290, 150, 500, 84, 42); ctx.fill();
+  ctx.font = F(42, 700); ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('shawgames.com', 540, 193); ctx.restore();
+  word(v.toLocaleString('en-US'), W / 2, 400, 200, G, k * land);
+  if (t > c.t0 + 0.35) word('PEOPLE EVERY MONTH', W / 2, 545, 58, '#FFFFFF', lerp(1.2, 1, outExpo(cl((t - c.t0 - 0.35) / 0.2))));
+}
+function title(t) {
+  const T0 = D.title.t0; if (t < T0) return;
+  [['THE BOY WHO', '#FFFFFF'], ['COULDN’T STOP', '#FFFFFF'], ['BUILDING.', G]].forEach(([s, col], i) => {
+    const p = outExpo(cl((t - T0 - 0.18 * i) / 0.5)); if (p <= 0) return; const y = 250 + i * 128;
+    ctx.save(); ctx.beginPath(); ctx.rect(0, y - 80, W, 160); ctx.clip(); word(s, W / 2, y + (1 - p) * 140, fit(s, 118, 960), col); ctx.restore();
+  });
+  const msg = 'The story is still being written.', a = D.title.type0, b = D.title.type1;
+  if (t > a) {
+    const n = Math.floor(msg.length * cl((t - a) / (b - a))), s = msg.slice(0, n);
+    ctx.save(); ctx.font = F(50, 800); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.shadowColor = 'rgba(0,0,0,.85)'; ctx.shadowBlur = 18;
+    ctx.lineJoin = 'round'; ctx.lineWidth = 8; ctx.strokeStyle = INK; ctx.strokeText(s, W / 2, 660);
+    ctx.fillStyle = '#FFFFFF'; ctx.fillText(s, W / 2, 660);
+    if (Math.floor(t * 3) % 2 === 0) { const wdt = ctx.measureText(s).width; ctx.shadowColor = 'transparent'; ctx.fillStyle = G; ctx.fillRect(W / 2 + wdt / 2 + 8, 634, 22, 52); }
+    ctx.restore();
+  }
+}
+window.seek = t => { ctx.clearRect(0, 0, W, H); counter(t); title(t); captions(t); };
+</script></body></html>

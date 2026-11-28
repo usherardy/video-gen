@@ -7,3 +7,4 @@ out/
 # generated audio and per-render data
 *.wav
 data.js
+overlay-data.js

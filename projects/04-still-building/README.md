@@ -1,8 +1,36 @@
 # 04 Still Building: "The boy who couldn't stop building"
 
-**Watch:** [`videos/still-building-9x16.mp4`](videos/still-building-9x16.mp4) (67.7 s, 9:16)
+**Watch:** [`videos/still-building-animated-9x16.mp4`](videos/still-building-animated-9x16.mp4) (Pixar-style animated cut, 67.7 s, 9:16)
+· [`videos/still-building-9x16.mp4`](videos/still-building-9x16.mp4) (first version: illustrated motion graphics)
 **Prompts, tools & skills:** [`PROMPTS.md`](PROMPTS.md)
 Run every command below from this folder.
+
+## The animated cut (`pixar/`)
+
+Rebuilt to match the reference the user picked (a Pixar-style animated story reel with one-word captions and real
+footage as proof). Same script, voiceover, score and word timings as the first version.
+
+- **Character:** `pixar/character/` — the hero at 24 (`adult-B.png`) and at 13 (`boy-A.png`), Gemini 3 Pro Image, designed
+  from a description of the user's photo (the photo itself could not be passed to ElevenLabs from the session).
+- **25 shots:** a 9:16 keyframe each (`pixar/keyframes/`, Gemini 3.1 Flash Image with the character sheets as references),
+  animated with Kling 2.5 Turbo (5 s image-to-video). All on the ElevenLabs flow "Still Building – Pixar film";
+  node and generation ids in `pixar/nodes.json`. The clips (`pixar/clips/vNN.mp4`) are git-ignored; fetch them again
+  from the flow by those generation ids.
+- **Real footage:** `pixar/real/shaw-scroll.mp4`, a scroll down the live shawgames.com mobile page (`pixar/real/record.cjs`),
+  under the 15,000 count-up.
+- **Edit:** `pixar/compose.mjs` cuts each shot on the first word of a caption chunk (`captions.json`), then composites
+  `pixar/overlay.html` (one-word green Montserrat Black captions, the count-up, the end title; a pure `seek(t)`) and
+  `audio/still_vo.wav`.
+
+```bash
+cd pixar && node compose.mjs --frames 1,20,42,66
+```
+```bash
+cd pixar && node compose.mjs
+```
+The master lands in `pixar/out/still-building-animated-9x16.mp4` (CRF 16); the copy in `videos/` is CRF 23.
+
+## The first version (illustrated)
 
 A personal story reel. It opens at 2 AM on the one lit window in a sleeping city, goes back to an eighth-grade CRT
 ("C:\> new company"), jumps to grade 10 and Pexel (an anonymous feedback chat that nobody used), then to Lithuania in the snow,

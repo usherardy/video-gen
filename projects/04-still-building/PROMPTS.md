@@ -14,6 +14,17 @@ The user's prompts, in order:
 3. *"pexel is the name of the site it was website for anonymus chat to give feedaback., 15k shawgames mau mention me not we"*
 4. *"yes use eleven labs"*
 5. *"well i NEED THE VIDEO as well, correct?"*
+6. *"did you not use the skill"* → *"it does not look like that video at all"* → reference reel picked: an X post by
+   Ernesto Lopez ("How I went from high school dropout to $200,000 months at 22"), a Pixar-style animated story with
+   one-word captions and real footage at the end. Accent: green.
+7. Budget: Kling 2.5 Turbo, ~75K ElevenLabs credits. A photo of the user as the character reference; *"ok design the
+   chatecter"*; *"so where is teh video"*.
+
+## Animated cut
+- Character sheets: ElevenLabs `gemini-3-pro-image` (2 options each; adult option B and boy option A kept).
+- Keyframes: `gemini-3.1-flash-image`, 9:16, wired to the character sheets; prompts are on the flow nodes (labels KF01–KF26).
+- Clips: `kling-2.5-turbo`, 5 s, 9:16, start frame = keyframe, one action and one camera move each (labels V01–V26).
+- Credits: about 2,750 (voiceover) + 6,100 (character sheets) + 15,600 (keyframes) + 53,000 (clips).
 
 ## Film
 Built with the studio rules in the root `CLAUDE.md`: a pure `seek(t)` Canvas film, a synthesized score on a measured
