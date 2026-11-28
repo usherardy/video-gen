@@ -1,6 +1,8 @@
 # DECRU — 30 s launch film
 
-**Prompts, tools & skills:** [`PROMPTS.md`](PROMPTS.md)
+**Watch:** [`videos/decru-16x9.mp4`](videos/decru-16x9.mp4) · [`videos/decru-9x16.mp4`](videos/decru-9x16.mp4)  
+**Prompts, tools & skills:** [`PROMPTS.md`](PROMPTS.md)  
+Run every command below from this folder.
 
 `index.html` is the whole film: one self-contained file (fonts, app screens and brand photos inlined; GSAP 3.12.5 from cdnjs).
 Look: white and minimal, in the decru.co brand system. The wordmark is "DECRU" in Montserrat SemiBold, -0.055em, ink #1A1614 on #FFFFFF,
